@@ -36,7 +36,7 @@ else Verif one or more Unsuccessfull
     Service Publication Fonciere->Notaire: Post Succesfull
 end
 ```
-![](Publication d'acte de vente.png)
+![](Publication_d'acte_de_vente.png)
 
 ## Schéma relationnel
 

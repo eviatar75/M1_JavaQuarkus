@@ -1,6 +1,11 @@
 ## Objectifs du système à modéliser
 
-On propose de modéliser un système de 
+On propose de modéliser un système de vérification d'acte de vente à travers le service de publication fonciére, afin de vérifier plusieurs conditions : 
+
+- Vérification de la liste des anciens et actuel proprétaire du bien.
+- Vérifications des critéres du bien (superficie, concordance des données,...) <- A compléter 
+- Vérifier que le prix de vente est compris dans la fourchette des prix des autres biens présent dans le même quartier 
+- Vérifier de la concordance des dates <- A compléter  
 
 ## Interfaces
 

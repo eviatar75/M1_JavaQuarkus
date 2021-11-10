@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="verification_service_4" />
+        <module name="verification_service_3" />
+        <module name="notary" />
+        <module name="verification_service_2" />
+        <module name="verification_service_1" />
+        <module name="land_publication_service" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="code-with-quarkus" target="11" />
+      <module name="land_publication_service" target="11" />
+      <module name="notaire" target="11" />
+      <module name="notary" target="11" />
+      <module name="verification_service_1" target="11" />
+      <module name="verification_service_2" target="11" />
+      <module name="verification_service_3" target="11" />
+      <module name="verification_service_4" target="11" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="code-with-quarkus" options="-parameters" />
+      <module name="land_publication_service" options="-parameters" />
+      <module name="notaire" options="-parameters" />
+      <module name="notary" options="-parameters" />
+      <module name="verification_service_1" options="-parameters" />
+      <module name="verification_service_2" options="-parameters" />
+      <module name="verification_service_3" options="-parameters" />
+      <module name="verification_service_4" options="-parameters" />
+    </option>
+  </component>
+</project>

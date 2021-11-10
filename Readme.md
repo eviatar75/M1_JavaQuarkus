@@ -16,8 +16,6 @@ title Publication d'acte de vente
 Notaire->Service Publication Fonciere: POST acteVente
 
 
-
-
 Service Publication Fonciere->Metier1: POST DTO VerifHistoHypo
 Service Publication Fonciere->Metier2: POST DTO VerifCriteresBien
 Service Publication Fonciere->Metier3: POST DTO PrixDeVente
@@ -26,22 +24,23 @@ Service Publication Fonciere->Metier4: POST DTO VerifDates
 
 
 alt Verif AllSuccessfull
-    Metier1->Service Publication Fonciere: POST DTO VerifHistoHypoOk
-    Metier2->Service Publication Fonciere: POST DTO VerifCriteresBienOk
-    Metier3->Service Publication Fonciere: POST DTO PrixDeVenteOK
-    Metier4->Service Publication Fonciere: POST DTO VerifDatesOk
-    Service Publication Fonciere->Notaire: POST Succesfull
+    Metier1->Service Publication Fonciere: POST JSON VerifHistoHypoOk
+    Metier2->Service Publication Fonciere: POST JSON VerifCriteresBienOk
+    Metier3->Service Publication Fonciere: POST JSON PrixDeVenteOK
+    Metier4->Service Publication Fonciere: POST JSON VerifDatesOk
+    Service Publication Fonciere->Notaire: POST JSON Succesfull
     Notaire->Proprio: SMTP PDF Acte de vente
     
 else Verif one or more Unsuccessfull
-    Metier1->Service Publication Fonciere: POST DTO VerifHistoHypoNotOk
-    Metier2->Service Publication Fonciere: POST DTO VerifCriteresBienNotOk
-    Metier3->Service Publication Fonciere: POST DTO PrixDeVenteNotOK
-    Metier4->Service Publication Fonciere: POST DTO VerifDatesNotOk
-    Service Publication Fonciere->Notaire: Post Succesfull
+    Metier1->Service Publication Fonciere: POST JSON VerifHistoHypoNotOk
+    Metier2->Service Publication Fonciere: POST JSON VerifCriteresBienNotOk
+    Metier3->Service Publication Fonciere: POST JSON PrixDeVenteNotOK
+    Metier4->Service Publication Fonciere: POST JSON VerifDatesNotOk
+    Service Publication Fonciere->Notaire: POST JSON Unsuccesfull
 end
+
 ```
-![](Publication_d'acte_de_vente.png)
+![](sequence_acte_de_vente.png)
 
 ## Schéma relationnel
 

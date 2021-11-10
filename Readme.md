@@ -49,26 +49,18 @@ end
 
 ## Exigences fonctionnelles
 
-* le vendor NE DOIT proposer que les concerts pour lesquels il a un quota disponible, transmis par le master.
-* le vendor DOIT pouvoir effectuer les opérations de booking et ticketing
-* le master DOIT permettre à l'artiste d'annuler son concert.
-* le master DOIT informer le vendor en cas d'annulation de concert
-* le vendor DOIT informer les clients de l'annulation du concert par mail
-* le master DOIT proposer un service de validation de la clé du ticket, pour les contrôles aux entées.
+* Le vendeur d’un bien DOIT être le propriétaire de ce dernier.
+* Un bien NE DOIT PAS être hypothéqué.
+* Le diagnostic d'amiante DOIT être précisé dans l’acte de vente.
+* Un bien NE DOIT PAS pouvoir être chauffé au gaz si le bien est neuf.
+* Le prix d’un bien NE DOIT PAS être inférieur au prix de vente le plus bas d’une zone géographique déterminée par un code postal.
+* le vendeur et l'acheteur DOIVENT fixer une date de signature pour le compromis de vente.
+* le vendeur NE DOIT PAS renoncer à la vente ou proposer le bien immobilier à un tiers acquéreur pendant la promesse de vente.
+* la signature de l'acte de vente chez le notaire DOIT avoir lieu dans les délais dans le compromis de vente. (2 mois minimum)
+* le notaire DOIT pouvoir repousser la date de signature de manière unilatérale (si contraintes administratives).
+* Le futur acquéreur DOIT pouvoir renoncer à l'achat pendant les dix jours qui suivent la signature d'un compromis de vente.
+* Si le retractaire a versé un dépôt de grantie auprès du notaire, il DOIT restituer la somme dans les 21 jours suivants.
 
 ## Exigences non fonctionnelles
 
-* le booking et le ticketing, bien qu'étant des opérations synchrones, DOIVENT être fiables et donc utiliser le messaging
-* Lors de l'annulation de tickets, le master DOIT informer tous les vendors de l'annulation, de façon fiable.
-© 2021 GitHub, Inc.
-Terms
-Privacy
-Security
-Status
-Docs
-Contact GitHub
-Pricing
-API
-Training
-Blog
-About
+* le notaire DOIT remettre à l'acheteur une attestation immobilière de propriété en attendant la transmission du titre de propriété. (pendant le temps d'obtention de titre de proprio qui généralement se fait en 6 mois)

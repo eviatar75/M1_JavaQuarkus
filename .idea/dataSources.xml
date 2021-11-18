@@ -8,5 +8,19 @@
       <jdbc-url>jdbc:mysql://mysql.miage.dev:80/guennif_db</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="coquelet_db@mysql.miage.dev" uuid="02b10a41-8f8e-4cc8-af71-7fce73ad66dd">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://mysql.miage.dev:80/coquelet_db</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+    <data-source source="LOCAL" name="houri_db@mysql.miage.dev" uuid="ac949d78-3f39-49f1-ba59-b2dd4104167d">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://mysql.miage.dev:80/houri_db</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

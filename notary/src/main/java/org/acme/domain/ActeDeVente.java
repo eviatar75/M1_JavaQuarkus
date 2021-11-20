@@ -1,14 +1,16 @@
 package org.acme.domain;
 
+import io.quarkus.hibernate.orm.panache.PanacheEntity;
+
+import javax.json.bind.annotation.JsonbProperty;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
+
 
 @Table(name = "Acte_de_vente")
 @Entity
-public class ActeDeVente {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Integer id;
+public class ActeDeVente extends PanacheEntity {
+
 
     @Column(name = "url_pdf")
     private String urlPdf;
@@ -27,6 +29,8 @@ public class ActeDeVente {
     @JoinColumn(name = "vendeur", nullable = false)
     private Personne vendeur;
 
+
+    @JsonbProperty("vendeur")
     public Personne getVendeur() {
         return vendeur;
     }
@@ -35,6 +39,7 @@ public class ActeDeVente {
         this.vendeur = vendeur;
     }
 
+    @JsonbProperty("acheteur")
     public Personne getAcheteur() {
         return acheteur;
     }
@@ -43,6 +48,7 @@ public class ActeDeVente {
         this.acheteur = acheteur;
     }
 
+    @JsonbProperty("statue_mail")
     public Boolean getStatutMail() {
         return statutMail;
     }
@@ -51,6 +57,7 @@ public class ActeDeVente {
         this.statutMail = statutMail;
     }
 
+    @JsonbProperty("statue_pdf")
     public Boolean getStatuePdf() {
         return statuePdf;
     }
@@ -59,6 +66,7 @@ public class ActeDeVente {
         this.statuePdf = statuePdf;
     }
 
+    @JsonbProperty("pdf_url")
     public String getUrlPdf() {
         return urlPdf;
     }
@@ -67,11 +75,4 @@ public class ActeDeVente {
         this.urlPdf = urlPdf;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 }

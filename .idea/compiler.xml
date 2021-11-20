@@ -6,11 +6,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="verification_service_4" />
-        <module name="verification_service_3" />
         <module name="notary" />
-        <module name="verification_service_2" />
-        <module name="verification_service_1" />
         <module name="land_publication_service" />
       </profile>
     </annotationProcessing>

@@ -15,7 +15,6 @@ public class ContratDeVenteDTO {
     String porte;
     int nbPiece;
     int superficie;
-    boolean statutHypotheque;
     Date dateConstruction;
     String indicePerfEnergetique;
     String chauffage;
@@ -37,7 +36,6 @@ public class ContratDeVenteDTO {
         this.porte = porte;
         this.nbPiece = nbPiece;
         this.superficie = superficie;
-        this.statutHypotheque = statutHypotheque;
         this.dateConstruction = dateConstruction;
         this.indicePerfEnergetique = indicePerfEnergetique;
         this.chauffage = chauffage;
@@ -109,14 +107,6 @@ public class ContratDeVenteDTO {
 
     public void setSuperficie(int superficie) {
         this.superficie = superficie;
-    }
-
-    public boolean isStatutHypotheque() {
-        return statutHypotheque;
-    }
-
-    public void setStatutHypotheque(boolean statutHypotheque) {
-        this.statutHypotheque = statutHypotheque;
     }
 
     public Date getDateConstruction() {

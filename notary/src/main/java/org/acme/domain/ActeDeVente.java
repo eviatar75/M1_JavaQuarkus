@@ -1,25 +1,22 @@
 package org.acme.domain;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
-import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
-
 
 @Table(name = "Acte_de_vente")
 @Entity
 public class ActeDeVente extends PanacheEntity {
-
-
-    @Column(name = "url_pdf")
-    private String urlPdf;
 
     @Column(name = "statue_pdf", nullable = false)
     private Boolean statuePdf = false;
 
     @Column(name = "statut_mail", nullable = false)
     private Boolean statutMail = false;
+
+    @Column(name = "url_pdf")
+    private String urlPdf;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "acheteur", nullable = false)
@@ -29,8 +26,6 @@ public class ActeDeVente extends PanacheEntity {
     @JoinColumn(name = "vendeur", nullable = false)
     private Personne vendeur;
 
-
-    @JsonbProperty("vendeur")
     public Personne getVendeur() {
         return vendeur;
     }
@@ -39,7 +34,6 @@ public class ActeDeVente extends PanacheEntity {
         this.vendeur = vendeur;
     }
 
-    @JsonbProperty("acheteur")
     public Personne getAcheteur() {
         return acheteur;
     }
@@ -48,25 +42,6 @@ public class ActeDeVente extends PanacheEntity {
         this.acheteur = acheteur;
     }
 
-    @JsonbProperty("statue_mail")
-    public Boolean getStatutMail() {
-        return statutMail;
-    }
-
-    public void setStatutMail(Boolean statutMail) {
-        this.statutMail = statutMail;
-    }
-
-    @JsonbProperty("statue_pdf")
-    public Boolean getStatuePdf() {
-        return statuePdf;
-    }
-
-    public void setStatuePdf(Boolean statuePdf) {
-        this.statuePdf = statuePdf;
-    }
-
-    @JsonbProperty("pdf_url")
     public String getUrlPdf() {
         return urlPdf;
     }
@@ -75,4 +50,27 @@ public class ActeDeVente extends PanacheEntity {
         this.urlPdf = urlPdf;
     }
 
+    public Boolean getStatutMail() {
+        return statutMail;
+    }
+
+    public void setStatutMail(Boolean statutMail) {
+        this.statutMail = statutMail;
+    }
+
+    public Boolean getStatuePdf() {
+        return statuePdf;
+    }
+
+    public void setStatuePdf(Boolean statuePdf) {
+        this.statuePdf = statuePdf;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

@@ -3,15 +3,8 @@ package org.acme;
 import org.acme.domain.ActeDeVente;
 import org.acme.domain.Personne;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceContextType;
-import javax.transaction.Transactional;
 import javax.validation.constraints.Positive;
 import java.time.LocalDate;
-import java.time.chrono.AbstractChronology;
 
 
 public class ContratDeVenteService {
@@ -23,6 +16,7 @@ public class ContratDeVenteService {
         LocalDate b=LocalDate.of(1980, 9,3);
 
         Personne acheteur=new Personne();
+        acheteur.setId(233234890L);
         acheteur.setAdresse("rue de Tolbiac");
         acheteur.setCodePostal(75013);
         acheteur.setDateNaissance(a);
@@ -30,9 +24,11 @@ public class ContratDeVenteService {
         acheteur.setPrenom("Oualid");
         acheteur.setNumeroRue(90);
 
+
         acheteur.persist();
 
         Personne vendeur=new Personne();
+        vendeur.setId(233234L);
         vendeur.setAdresse("rue de montaubant");
         vendeur.setCodePostal(77540);
         vendeur.setDateNaissance(b);
@@ -51,7 +47,7 @@ public class ContratDeVenteService {
 
         acte.persist();
 
-        System.out.println(acte.id);
+        System.out.println(acte.getId());
 
 
 
@@ -70,8 +66,11 @@ public class ContratDeVenteService {
 
     }
 
-    public void createTrain(ActeDeVente acte) throws Exception {
+    public void createActeVente(ActeDeVente acte) throws Exception {
         try {
+            ActeDeVente newActe=new ActeDeVente();
+            newActe.setStatutMail(false);
+
 
 
 

@@ -1,31 +1,19 @@
 package org.acme.domain;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
-import javax.json.bind.annotation.JsonbAnnotation;
+import javax.json.bind.annotation.JsonbProperty;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.time.LocalDate;
-import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbTransient;
-import javax.xml.bind.annotation.*;
-import java.util.ArrayList;
-import java.util.List;
-
 
 @Entity
-public class Personne extends PanacheEntity {
-
-
-    @Column(name = "nom", nullable = false)
-    private String nom;
-
-    @Column(name = "prenom", nullable = false)
-    private String prenom;
-
-    @Column(name = "numero_rue")
-    private Integer numeroRue;
+public class Personne extends PanacheEntityBase {
+    @Id
+    @Column(name = "securite_sociale", nullable = false)
+    private Long id;
 
     @Column(name = "adresse")
     private String adresse;
@@ -36,43 +24,15 @@ public class Personne extends PanacheEntity {
     @Column(name = "date_naissance", nullable = false)
     private LocalDate dateNaissance;
 
-    @JsonbProperty("date_naissance")
-    public LocalDate getDateNaissance() {
-        return dateNaissance;
-    }
+    @Column(name = "nom", nullable = false)
+    private String nom;
 
-    public void setDateNaissance(LocalDate dateNaissance) {
-        this.dateNaissance = dateNaissance;
-    }
+    @Column(name = "numero_rue")
+    private Integer numeroRue;
 
-    @JsonbProperty("code_postal")
-    public Integer getCodePostal() {
-        return codePostal;
-    }
+    @Column(name = "prenom", nullable = false)
+    private String prenom;
 
-    public void setCodePostal(Integer codePostal) {
-        this.codePostal = codePostal;
-    }
-
-    @JsonbProperty("adresse")
-    public String getAdresse() {
-        return adresse;
-    }
-
-    public void setAdresse(String adresse) {
-        this.adresse = adresse;
-    }
-
-    @JsonbProperty("numero_rue")
-    public Integer getNumeroRue() {
-        return numeroRue;
-    }
-
-    public void setNumeroRue(Integer numeroRue) {
-        this.numeroRue = numeroRue;
-    }
-
-    @JsonbProperty("prenom")
     public String getPrenom() {
         return prenom;
     }
@@ -81,7 +41,14 @@ public class Personne extends PanacheEntity {
         this.prenom = prenom;
     }
 
-    @JsonbProperty("nom")
+    public Integer getNumeroRue() {
+        return numeroRue;
+    }
+
+    public void setNumeroRue(Integer numeroRue) {
+        this.numeroRue = numeroRue;
+    }
+
     public String getNom() {
         return nom;
     }
@@ -90,7 +57,50 @@ public class Personne extends PanacheEntity {
         this.nom = nom;
     }
 
+    public LocalDate getDateNaissance() {
+        return dateNaissance;
+    }
+
+    public void setDateNaissance(LocalDate dateNaissance) {
+        this.dateNaissance = dateNaissance;
+    }
+
+    public Integer getCodePostal() {
+        return codePostal;
+    }
+
+    public void setCodePostal(Integer codePostal) {
+        this.codePostal = codePostal;
+    }
+
+    public String getAdresse() {
+        return adresse;
+    }
+
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
+    }
+
+    @JsonbProperty("securite_sociale")
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Personne{" +
+                "id=" + id +
+                ", adresse='" + adresse + '\'' +
+                ", codePostal=" + codePostal +
+                ", dateNaissance=" + dateNaissance +
+                ", nom='" + nom + '\'' +
+                ", numeroRue=" + numeroRue +
+                ", prenom='" + prenom + '\'' +
+                '}';
+    }
 }
-
-
-

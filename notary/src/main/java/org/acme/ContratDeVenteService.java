@@ -16,6 +16,7 @@ import javax.json.bind.JsonbBuilder;
 import javax.transaction.Transactional;
 import javax.validation.constraints.Positive;
 import javax.ws.rs.Produces;
+import java.io.Serializable;
 import java.time.LocalDate;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
@@ -24,7 +25,7 @@ import org.apache.camel.spi.DataFormat;
 
 
 @ApplicationScoped
-public class ContratDeVenteService {
+public class ContratDeVenteService implements Serializable {
 
     @Inject
     ConnectionFactory connectionFactory;
@@ -96,7 +97,7 @@ public class ContratDeVenteService {
     }
 
 
-    public void createActeVenteDTO(ContratPostDTO a, int id) throws Exception {
+    public void createActeVenteDTO(ContratPostDTO a, int id)  throws Exception {
         try {
 
 
@@ -124,28 +125,43 @@ public class ContratDeVenteService {
             dtoActeDeVente.setDate_signature_acte(a.getDate_signature_vente());
             dtoActeDeVente.setPrix(a.getPrix());
 
-            System.out.println("\n\nAAAAAAAAA_\neeeeeeee\neeeeeeee");
 
-            System.out.println(dtoActeDeVente);
+
+
 
 
             try (JMSContext context = connectionFactory.createContext(Session.AUTO_ACKNOWLEDGE)) {
                 ObjectMapper mapper = new ObjectMapper();
+                mapper.findAndRegisterModules();
                 AnnotationIntrospector introspector = new JaxbAnnotationIntrospector(mapper.getTypeFactory());
                 mapper.setAnnotationIntrospector(introspector);
 
 
+                System.out.println("\n\nAAAAAAAAA_\neeeeeeee\neeeeeeee");
+                // Printing JSON
+                String result = mapper.writeValueAsString(dtoActeDeVente);
+                System.out.println(result);
+                // Parsing JSON
+                // Parsing JSON
+                //Recipe retr = mapper.readValue(result, Recipe.class);
+
+                //System.out.println("Title   : " + retr.getTitle());
+                //System.out.println("Duration: " + retr.getDuration());
 
 
-                ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-
-                String jsonActeDeVente = ow.writeValueAsString(dtoActeDeVente);
 
 
 
 
 
-                context.createProducer().send(context.createQueue("direct:acte"), jsonActeDeVente);
+
+
+
+
+
+
+
+                context.createProducer().send(context.createQueue("direct:acteVenteUNVERIFIED"), result);
             }
 
 

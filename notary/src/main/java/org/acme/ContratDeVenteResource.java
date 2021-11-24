@@ -3,6 +3,7 @@ package org.acme;
 import io.quarkus.resteasy.reactive.jsonb.runtime.serialisers.JsonbMessageBodyReader;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
+import org.acme.DTO.ContratPostDTO;
 import org.acme.domain.ActeDeVente;
 import org.acme.domain.Personne;
 import org.jboss.resteasy.reactive.common.providers.serialisers.jsonp.JsonObjectHandler;
@@ -49,8 +50,8 @@ public class ContratDeVenteResource {
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces
     @Transactional
-    public void generateActe( JsonObject a ) throws Exception {
-        System.out.println(a.getJsonObject("acheteur").getString("nom"));
+    public void generateActe( ContratPostDTO a ) throws Exception {
+        System.out.println(a);
 
         service.createActeVente(a);
 

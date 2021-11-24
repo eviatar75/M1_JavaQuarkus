@@ -8,7 +8,7 @@ import java.util.List;
 
 
 @XmlRootElement
-public class ContratDeVenteDTO {
+public class ContratDeVenteBrokerDTO {
     int id;
 
     int numeroRue;
@@ -37,7 +37,7 @@ public class ContratDeVenteDTO {
 
     List<Long> ancienProprietaires = new ArrayList<Long>();
 
-    public ContratDeVenteDTO() {
+    public ContratDeVenteBrokerDTO() {
     }
 
 

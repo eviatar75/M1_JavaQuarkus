@@ -7,6 +7,7 @@ import org.acme.domain.ActeDeVente;
 import org.acme.domain.Personne;
 import org.jboss.resteasy.reactive.common.providers.serialisers.jsonp.JsonObjectHandler;
 
+import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.validation.constraints.Positive;
 import javax.ws.rs.*;
@@ -16,8 +17,8 @@ import java.time.LocalDate;
 
 @Path("/ActeDeVente")
 public class ContratDeVenteResource {
-
-    ContratDeVenteService service = new ContratDeVenteService();
+    @Inject
+    ContratDeVenteService service;
 
     @GET
     @Path("{contratActeDeVente}")

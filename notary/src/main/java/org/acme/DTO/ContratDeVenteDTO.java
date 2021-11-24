@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+
 @XmlRootElement
 public class ContratDeVenteDTO {
     int id;
@@ -190,5 +191,30 @@ public class ContratDeVenteDTO {
 
     public void setAncienProprietaires(List<Long> ancienProprietaires) {
         this.ancienProprietaires = ancienProprietaires;
+    }
+
+    @Override
+    public String toString() {
+        return "ContratDeVenteDTO{" +
+                "id=" + id +
+                ", numeroRue=" + numeroRue +
+                ", rue='" + rue + '\'' +
+                ", codePostal=" + codePostal +
+                ", etage=" + etage +
+                ", porte=" + porte +
+                ", prix=" + prix +
+                ", nbPiece=" + nbPiece +
+                ", superficie=" + superficie +
+                ", dateConstruction=" + dateConstruction +
+                ", date_compromis_vente=" + date_compromis_vente +
+                ", date_signature_acte=" + date_signature_acte +
+                ", indicePerfEnergetique='" + indicePerfEnergetique + '\'' +
+                ", chauffage='" + chauffage + '\'' +
+                ", isolation=" + isolation +
+                ", amiante=" + amiante +
+                ", acheteur=" + acheteur +
+                ", vendeur=" + vendeur +
+                ", ancienProprietaires=" + ancienProprietaires +
+                '}';
     }
 }

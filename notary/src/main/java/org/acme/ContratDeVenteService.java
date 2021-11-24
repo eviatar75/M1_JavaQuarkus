@@ -5,14 +5,23 @@ import org.acme.DTO.ContratDeVenteDTO;
 import org.acme.domain.ActeDeVente;
 import org.acme.domain.Personne;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.jms.ConnectionFactory;
+import javax.jms.JMSContext;
+import javax.jms.Session;
+import javax.json.bind.Jsonb;
+import javax.json.bind.JsonbBuilder;
+import javax.json.bind.serializer.JsonbSerializer;
 import javax.transaction.Transactional;
 import javax.validation.constraints.Positive;
 import javax.ws.rs.Produces;
 import java.time.LocalDate;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 
 
+@ApplicationScoped
 public class ContratDeVenteService {
 
     @Inject
@@ -132,49 +141,61 @@ public class ContratDeVenteService {
 
     public void createActeVenteDTO(JsonObject a, int id) throws Exception {
         try {
-            System.out.println(a.getJsonObject("acheteur").getString("nom"));
+
 
             ContratDeVenteDTO dtoActeDeVente = new ContratDeVenteDTO();
 
             dtoActeDeVente.setId(id);
-            System.out.println("1");
+
 
             dtoActeDeVente.setAcheteur(a.getJsonObject("acheteur").getLong("securite_sociale"));
-            System.out.println("2");
+
             dtoActeDeVente.setVendeur(a.getJsonObject("acheteur").getLong("securite_sociale"));
-            System.out.println("3");
+
 
             dtoActeDeVente.setNumeroRue(a.getJsonObject("description_bien").getInteger("numero_rue"));
-            System.out.println("4");
+
             dtoActeDeVente.setRue(a.getJsonObject("description_bien").getString("rue"));
-            System.out.println("5");
+
             dtoActeDeVente.setCodePostal(a.getJsonObject("description_bien").getInteger("code_postal"));
-            System.out.println("6");
+
             dtoActeDeVente.setEtage(a.getJsonObject("description_bien").getInteger("etage"));
-            System.out.println("7");
+
             dtoActeDeVente.setChauffage(a.getJsonObject("description_bien").getString("chauffage"));
-            System.out.println("8");
-            dtoActeDeVente.setAmiante((a.getJsonObject("description_bien").getBoolean("amiante")));
-            System.out.println("9");
+
+            dtoActeDeVente.setAmiante(false);
+
             dtoActeDeVente.setIndicePerfEnergetique(a.getJsonObject("description_bien").getString("indice_perf_energetique"));
-            System.out.println("10");
-            dtoActeDeVente.setIsolation(a.getJsonObject("description_bien").getBoolean("isolation"));
-            System.out.println("11");
+
+            dtoActeDeVente.setIsolation(true);
+
             dtoActeDeVente.setNbPiece(a.getJsonObject("description_bien").getInteger("nb_piece"));
-            System.out.println("12");
+
             dtoActeDeVente.setSuperficie(a.getJsonObject("description_bien").getInteger("superficie"));
-            System.out.println("13");
+
 
 
             dtoActeDeVente.setDateConstruction(LocalDate.parse(a.getJsonObject("description_bien").getString("date_construction")));
-            System.out.println("14");
-            dtoActeDeVente.setDate_compromis_vente(LocalDate.parse(a.getJsonObject("date").getString("date_compromis_vente")));
-            System.out.println("15");
-            dtoActeDeVente.setDate_signature_acte(LocalDate.parse(a.getJsonObject("date").getString("date_signature_vente")));
-            System.out.println("16");
 
-            dtoActeDeVente.setPrix(a.getJsonObject("prix").getInteger("prix"));
-            System.out.println("17");
+            dtoActeDeVente.setDate_compromis_vente(LocalDate.parse(a.getJsonObject("date").getString("date_compromis_vente")));
+            dtoActeDeVente.setDate_signature_acte(LocalDate.parse(a.getJsonObject("date").getString("date_signature_vente")));
+            dtoActeDeVente.setPrix(a.getInteger("prix"));
+
+
+
+            try (JMSContext context = connectionFactory.createContext(Session.AUTO_ACKNOWLEDGE)) {
+
+
+                ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+
+                String jsonActeDeVente = ow.writeValueAsString(dtoActeDeVente);
+
+                System.out.println(jsonActeDeVente);
+
+
+
+                context.createProducer().send(context.createQueue("direct:acte"), jsonActeDeVente);
+            }
 
 
 

@@ -26,6 +26,8 @@ public class ActeDeVente extends PanacheEntity {
     @JoinColumn(name = "vendeur", nullable = false)
     private Personne vendeur;
 
+    public ActeDeVente (){}
+
     public Personne getVendeur() {
         return vendeur;
     }
@@ -72,5 +74,17 @@ public class ActeDeVente extends PanacheEntity {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "ActeDeVente{" +
+                "statuePdf=" + statuePdf +
+                ", statutMail=" + statutMail +
+                ", urlPdf='" + urlPdf + '\'' +
+                ", acheteur=" + acheteur +
+                ", vendeur=" + vendeur +
+                ", id=" + id +
+                '}';
     }
 }

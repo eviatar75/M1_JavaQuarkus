@@ -48,42 +48,12 @@ public class ContratDeVenteResource {
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces
     @Transactional
-    public void createActeVente(@PathParam("generationActeDeVente") JsonObject a ) throws Exception {
+    public void generateActe( JsonObject a ) throws Exception {
+        System.out.println(a.getJsonObject("acheteur").getString("nom"));
+
+        service.createActeVente(a);
 
 
-        ActeDeVente   newActe      = new ActeDeVente();
-        Personne      acheteur     = new Personne();
-        Personne      vendeur      = new Personne();
-
-        acheteur.setId(a.getJsonObject("acheteur").getLong("securite_sociale"));
-        acheteur.setNumeroRue(a.getJsonObject("acheteur").getInteger("numero_rue"));
-        acheteur.setAdresse(a.getJsonObject("acheteur").getString("adresse"));
-        acheteur.setCodePostal(a.getJsonObject("acheteur").getInteger("code_postal"));
-        acheteur.setDateNaissance(LocalDate.parse(a.getJsonObject("acheteur").getString("date_naissance")));
-        acheteur.setNom(a.getJsonObject("acheteur").getString("nom"));
-        acheteur.setPrenom(a.getJsonObject("acheteur").getString("prenom"));
-
-        vendeur.setId(a.getJsonObject("vendeur").getLong("securite_sociale"));
-        vendeur.setNumeroRue(a.getJsonObject("vendeur").getInteger("numero_rue"));
-        vendeur.setAdresse(a.getJsonObject("vendeur").getString("adresse"));
-        vendeur.setCodePostal(a.getJsonObject("vendeur").getInteger("code_postal"));
-        vendeur.setDateNaissance(LocalDate.parse(a.getJsonObject("vendeur").getString("date_naissance")));
-        vendeur.setNom(a.getJsonObject("vendeur").getString("nom"));
-        vendeur.setPrenom(a.getJsonObject("vendeur").getString("prenom"));
-
-        newActe.setStatutMail(false);
-        newActe.setStatuePdf(false);
-        newActe.setAcheteur(acheteur);
-        newActe.setVendeur(vendeur);
-
-        acheteur.persist();
-        vendeur.persist();
-        newActe.persist();
-
-
-        System.out.println(acheteur+"\n"+vendeur+"\n"+newActe);
-
-        System.out.println(a.getJsonObject("acheteur"));
     }
 
 }

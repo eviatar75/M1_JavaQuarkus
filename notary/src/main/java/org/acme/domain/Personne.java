@@ -33,6 +33,8 @@ public class Personne extends PanacheEntityBase {
     @Column(name = "prenom", nullable = false)
     private String prenom;
 
+    public Personne() {}
+
     public String getPrenom() {
         return prenom;
     }

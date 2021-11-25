@@ -2,6 +2,7 @@ package org.acme.domain;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
+import org.acme.DTO.PersonneDTO;
 
 import javax.json.bind.annotation.JsonbProperty;
 import javax.persistence.Column;
@@ -92,6 +93,18 @@ public class Personne extends PanacheEntityBase {
         this.id = id;
     }
 
+    public static Personne personneFromDto(PersonneDTO p){
+        Personne personne = new Personne();
+        personne.setId(p.getSecurite_sociale());
+        personne.setNumeroRue(p.getNumero_rue());
+        personne.setAdresse(p.getAdresse());
+        personne.setCodePostal(p.getCode_postal());
+        personne.setDateNaissance(LocalDate.parse(p.getDate_naissance()));
+        personne.setNom(p.getNom());
+        personne.setPrenom(p.getPrenom());
+
+        return personne;
+    }
 
     @Override
     public String toString() {

@@ -52,27 +52,9 @@ public class ContratDeVenteService implements Serializable {
     public void createActeVente(ContratPostDTO a) throws Exception {
         try {
             ActeDeVente   newActe      = new ActeDeVente();
-            Personne      acheteur     = new Personne();
-            Personne      vendeur      = new Personne();
+            Personne      acheteur     = Personne.personneFromDto(a.getAcheteur());
+            Personne      vendeur      = Personne.personneFromDto(a.getVendeur());
 
-            LocalDate acheteur_date_naissance=LocalDate.parse(a.getAcheteur().getDate_naissance());
-            LocalDate vendeur_date_naissance=LocalDate.parse(a.getVendeur().getDate_naissance());
-
-            acheteur.setId(a.getAcheteur().getSecurite_sociale());
-            acheteur.setNumeroRue(a.getAcheteur().getNumero_rue());
-            acheteur.setAdresse(a.getAcheteur().getAdresse());
-            acheteur.setCodePostal(a.getAcheteur().getCode_postal());
-            acheteur.setDateNaissance(acheteur_date_naissance);
-            acheteur.setNom(a.getAcheteur().getNom());
-            acheteur.setPrenom(a.getAcheteur().getPrenom());
-
-            vendeur.setId( a.getVendeur().getSecurite_sociale());
-            vendeur.setNumeroRue(a.getAcheteur().getNumero_rue());
-            vendeur.setAdresse(a.getAcheteur().getAdresse());
-            vendeur.setCodePostal(a.getAcheteur().getCode_postal());
-            vendeur.setDateNaissance(vendeur_date_naissance);
-            vendeur.setNom(a.getAcheteur().getNom());
-            vendeur.setPrenom(a.getAcheteur().getPrenom());
 
             newActe.setStatutMail(false);
             newActe.setStatuePdf(false);
@@ -82,9 +64,6 @@ public class ContratDeVenteService implements Serializable {
             acheteur.persist();
             vendeur.persist();
             newActe.persist();
-
-
-
 
             createActeVenteDTO(a,newActe.getId().intValue());
 

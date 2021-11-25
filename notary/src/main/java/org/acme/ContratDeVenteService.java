@@ -67,12 +67,12 @@ public class ContratDeVenteService implements Serializable {
             acheteur.setPrenom(a.getAcheteur().getPrenom());
 
             vendeur.setId( a.getVendeur().getSecurite_sociale());
-            vendeur.setNumeroRue(a.getAcheteur().getNumero_rue());
-            vendeur.setAdresse(a.getAcheteur().getAdresse());
-            vendeur.setCodePostal(a.getAcheteur().getCode_postal());
+            vendeur.setNumeroRue(a.getVendeur().getNumero_rue());
+            vendeur.setAdresse(a.getVendeur().getAdresse());
+            vendeur.setCodePostal(a.getVendeur().getCode_postal());
             vendeur.setDateNaissance(vendeur_date_naissance);
-            vendeur.setNom(a.getAcheteur().getNom());
-            vendeur.setPrenom(a.getAcheteur().getPrenom());
+            vendeur.setNom(a.getVendeur().getNom());
+            vendeur.setPrenom(a.getVendeur().getPrenom());
 
             newActe.setStatutMail(false);
             newActe.setStatuePdf(false);
@@ -141,24 +141,13 @@ public class ContratDeVenteService implements Serializable {
                 // Printing JSON
                 String result = mapper.writeValueAsString(dtoActeDeVente);
                 System.out.println(result);
+
                 // Parsing JSON
                 // Parsing JSON
                 //Recipe retr = mapper.readValue(result, Recipe.class);
 
                 //System.out.println("Title   : " + retr.getTitle());
                 //System.out.println("Duration: " + retr.getDuration());
-
-
-
-
-
-
-
-
-
-
-
-
 
 
                 context.createProducer().send(context.createQueue("direct:acteVenteUNVERIFIED"), result);

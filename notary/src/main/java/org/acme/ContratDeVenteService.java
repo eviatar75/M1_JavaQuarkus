@@ -120,24 +120,13 @@ public class ContratDeVenteService implements Serializable {
                 // Printing JSON
                 String result = mapper.writeValueAsString(dtoActeDeVente);
                 System.out.println(result);
+
                 // Parsing JSON
                 // Parsing JSON
                 //Recipe retr = mapper.readValue(result, Recipe.class);
 
                 //System.out.println("Title   : " + retr.getTitle());
                 //System.out.println("Duration: " + retr.getDuration());
-
-
-
-
-
-
-
-
-
-
-
-
 
 
                 context.createProducer().send(context.createQueue("direct:acteVenteUNVERIFIED"), result);

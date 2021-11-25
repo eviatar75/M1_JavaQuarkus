@@ -1,4 +1,4 @@
-package org.acme;
+package org.acme.service;
 
 public class ActeDeVenteException extends Throwable {
     private String exception;

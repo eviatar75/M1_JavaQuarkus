@@ -1,13 +1,14 @@
 package org.acme.DTO;
 
-import javax.xml.bind.annotation.XmlRootElement;
+
+import javax.json.bind.annotation.JsonbProperty;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
+
 import java.util.List;
 
 
-@XmlRootElement
+
 public class ContratDeVenteBrokerDTO {
     int id;
 
@@ -185,6 +186,8 @@ public class ContratDeVenteBrokerDTO {
         this.vendeur = vendeur;
     }
 
+
+    @JsonbProperty("proprietaires")
     public List<Long> getAncienProprietaires() {
         return ancienProprietaires;
     }

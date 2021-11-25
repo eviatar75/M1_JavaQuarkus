@@ -1,7 +1,5 @@
-package org.acme;
+package org.acme.service;
 
-import com.fasterxml.jackson.databind.AnnotationIntrospector;
-import com.fasterxml.jackson.module.jaxb.JaxbAnnotationIntrospector;
 import org.acme.DTO.ContratDeVenteBrokerDTO;
 import org.acme.DTO.ContratPostDTO;
 import org.acme.domain.ActeDeVente;
@@ -10,18 +8,12 @@ import org.acme.domain.Personne;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.jms.ConnectionFactory;
-import javax.jms.JMSContext;
-import javax.jms.Session;
-import javax.json.bind.JsonbBuilder;
 import javax.transaction.Transactional;
 import javax.validation.constraints.Positive;
 import javax.ws.rs.Produces;
 import java.io.Serializable;
-import java.time.LocalDate;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
-import org.apache.camel.dataformat.bindy.csv.BindyCsvDataFormat;
-import org.apache.camel.spi.DataFormat;
+
+import org.acme.gateway.ActeDeVenteGatewayImpl;
 
 
 @ApplicationScoped
@@ -29,6 +21,8 @@ public class ContratDeVenteService implements Serializable {
 
     @Inject
     ConnectionFactory connectionFactory;
+    @Inject
+    ActeDeVenteGatewayImpl gateway;
 
 
     public ActeDeVente getActeById (long id) {
@@ -39,14 +33,10 @@ public class ContratDeVenteService implements Serializable {
 
 
     public void update(@Positive int idContract, ActeDeVente acte)  throws ActeDeVenteException {
-        ActeDeVente a= new ActeDeVente();
-        a.setAcheteur(acte.getAcheteur());
-        a.setStatuePdf(acte.getStatuePdf());
-        a.setVendeur(acte.getVendeur());
-        a.setUrlPdf(acte.getUrlPdf());
-
 
     }
+
+
     @Produces
     @Transactional
     public void createActeVente(ContratPostDTO a) throws Exception {
@@ -54,7 +44,6 @@ public class ContratDeVenteService implements Serializable {
             ActeDeVente   newActe      = new ActeDeVente();
             Personne      acheteur     = Personne.personneFromDto(a.getAcheteur());
             Personne      vendeur      = Personne.personneFromDto(a.getVendeur());
-
 
             newActe.setStatutMail(false);
             newActe.setStatuePdf(false);
@@ -86,9 +75,6 @@ public class ContratDeVenteService implements Serializable {
             dtoActeDeVente.setAcheteur(a.getAcheteur().getSecurite_sociale());
             dtoActeDeVente.setVendeur(a.getVendeur().getSecurite_sociale());
 
-
-
-
             dtoActeDeVente.setNumeroRue(a.getNumero_rue());
             dtoActeDeVente.setRue(a.getRue());
             dtoActeDeVente.setCodePostal(a.getCode_postal());
@@ -104,37 +90,7 @@ public class ContratDeVenteService implements Serializable {
             dtoActeDeVente.setDate_signature_acte(a.getDate_signature_vente());
             dtoActeDeVente.setPrix(a.getPrix());
 
-
-
-
-
-
-            try (JMSContext context = connectionFactory.createContext(Session.AUTO_ACKNOWLEDGE)) {
-                ObjectMapper mapper = new ObjectMapper();
-                mapper.findAndRegisterModules();
-                AnnotationIntrospector introspector = new JaxbAnnotationIntrospector(mapper.getTypeFactory());
-                mapper.setAnnotationIntrospector(introspector);
-
-
-                System.out.println("\n\nAAAAAAAAA_\neeeeeeee\neeeeeeee");
-                // Printing JSON
-                String result = mapper.writeValueAsString(dtoActeDeVente);
-                System.out.println(result);
-
-                // Parsing JSON
-                // Parsing JSON
-                //Recipe retr = mapper.readValue(result, Recipe.class);
-
-                //System.out.println("Title   : " + retr.getTitle());
-                //System.out.println("Duration: " + retr.getDuration());
-
-
-                context.createProducer().send(context.createQueue("direct:acteVenteUNVERIFIED"), result);
-            }
-
-
-
-
+            gateway.sendActeDeVente(dtoActeDeVente);
 
 
         }catch (Exception e){

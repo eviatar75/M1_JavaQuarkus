@@ -1,12 +1,9 @@
-package org.acme;
+package org.acme.resource;
 
-import io.quarkus.resteasy.reactive.jsonb.runtime.serialisers.JsonbMessageBodyReader;
-import io.vertx.core.json.JsonArray;
-import io.vertx.core.json.JsonObject;
+import org.acme.service.ActeDeVenteException;
+import org.acme.service.ContratDeVenteService;
 import org.acme.DTO.ContratPostDTO;
 import org.acme.domain.ActeDeVente;
-import org.acme.domain.Personne;
-import org.jboss.resteasy.reactive.common.providers.serialisers.jsonp.JsonObjectHandler;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -14,7 +11,6 @@ import javax.transaction.Transactional;
 import javax.validation.constraints.Positive;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.time.LocalDate;
 
 @ApplicationScoped
 @Path("/ActeDeVente")

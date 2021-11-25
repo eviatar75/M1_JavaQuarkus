@@ -2,16 +2,15 @@ package org.acme.DTO;
 
 import org.acme.domain.Personne;
 
-import javax.xml.bind.annotation.XmlRootElement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 
-@XmlRootElement
+
 public class ContratPostDTO {
     PersonneDTO acheteur;
-    PersonneDTO Vendeur;
+    PersonneDTO vendeur;
 
     List<Personne> ancienProprietaires = new ArrayList<Personne>();
 
@@ -48,11 +47,11 @@ public class ContratPostDTO {
     }
 
     public PersonneDTO getVendeur() {
-        return Vendeur;
+        return vendeur;
     }
 
     public void setVendeur(PersonneDTO vendeur) {
-        Vendeur = vendeur;
+        this.vendeur = vendeur;
     }
 
     public List<Personne> getAncienProprietaires() {
@@ -193,7 +192,7 @@ public class ContratPostDTO {
     public String toString() {
         return "ContratPostDTO{" +
                 "acheteur=" + acheteur +
-                ", Vendeur=" + Vendeur +
+                ", Vendeur=" + vendeur +
                 ", ancienProprietaires=" + ancienProprietaires +
                 ", numero_rue=" + numero_rue +
                 ", code_postal=" + code_postal +

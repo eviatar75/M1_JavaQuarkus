@@ -24,7 +24,6 @@ public class ContratDeVenteBrokerDTO {
     int superficie;
 
     LocalDate dateConstruction;
-
     LocalDate date_compromis_vente;
     LocalDate date_signature_acte;
 

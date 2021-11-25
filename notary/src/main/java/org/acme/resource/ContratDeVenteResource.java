@@ -45,14 +45,13 @@ public class ContratDeVenteResource {
     @POST
     @Path("{generationActeDeVente}")
     @Consumes({MediaType.APPLICATION_JSON})
-    @Produces
+    @Produces({MediaType.TEXT_PLAIN})
     @Transactional
-    public void generateActe( ContratPostDTO a ) throws Exception {
+
+    public String generateActe(ContratPostDTO a ) throws Exception {
         System.out.println(a);
-
         service.createActeVente(a);
-
-
+        return "valide";
     }
 
 }

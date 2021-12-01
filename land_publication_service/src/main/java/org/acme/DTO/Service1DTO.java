@@ -7,7 +7,7 @@ public class Service1DTO {
     String adresse;
     int code_postal;
     int etage;
-    String porte;
+    int porte;
 
     public Long getVendeur() {
         return vendeur;
@@ -48,12 +48,11 @@ public class Service1DTO {
     public void setEtage(int etage) {
         this.etage = etage;
     }
-
-    public String getPorte() {
+    public int getPorte() {
         return porte;
     }
 
-    public void setPorte(String porte) {
+    public void setPorte(int porte) {
         this.porte = porte;
     }
 

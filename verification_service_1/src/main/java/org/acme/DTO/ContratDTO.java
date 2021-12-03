@@ -11,7 +11,7 @@ public class ContratDTO {
     String adresse;
     int code_postal;
     int etage;
-    String porte;
+    int porte;
 
     public int getNbPieces() {
         return nbPieces;
@@ -73,11 +73,11 @@ public class ContratDTO {
         this.etage = etage;
     }
 
-    public String getPorte() {
+    public int getPorte() {
         return porte;
     }
 
-    public void setPorte(String porte) {
+    public void setPorte(int porte) {
         this.porte = porte;
     }
 

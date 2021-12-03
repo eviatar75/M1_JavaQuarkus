@@ -4,10 +4,12 @@ import org.acme.DTO.ContratDTO;
 import org.acme.dao.BienImmobilierDAOImpl;
 import org.acme.dao.TransactionDAOImpl;
 import org.acme.domain.BienImmobilier;
+import org.acme.domain.Personne;
 import org.acme.exception.PersonneNotFound;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import java.util.HashSet;
 import java.util.List;
 
 @ApplicationScoped
@@ -27,19 +29,19 @@ public class CheckerServiceImpl implements CheckerService{
 
     public Boolean isAncienProprietairesMatching(ContratDTO unContrat) throws PersonneNotFound {
         BienImmobilier bienImmobilier = BienImmobilierGetter(unContrat);
-        List ancienProprietaireLocal = transactionDAO.getAnciensProprietaires(bienImmobilier.getId());
-        List ancienProprietaireContrat = transactionDAO.getPersonnesFromIds(unContrat.getAncienProprietaires());
-        return (ancienProprietaireContrat.containsAll(ancienProprietaireLocal) && ancienProprietaireLocal.containsAll(ancienProprietaireContrat));
+        List<Personne> ancienProprietaireLocal = transactionDAO.getAnciensProprietaires(bienImmobilier.getId());
+        List<Personne> ancienProprietaireContrat = transactionDAO.getPersonnesFromIds(unContrat.getAncienProprietaires());
+        return ancienProprietaireContrat.size() == ancienProprietaireLocal.size() && new HashSet<Personne>(ancienProprietaireContrat).containsAll(new HashSet<Personne>(ancienProprietaireLocal));
     }
 
-    public Boolean Checker(ContratDTO unContrat) throws PersonneNotFound {
-        return isAncienProprietairesMatching(unContrat)&&isHypotheque(unContrat);
+    public String Checker(ContratDTO unContrat) throws PersonneNotFound {
+        return isAncienProprietairesMatching(unContrat)&&isHypotheque(unContrat)?"success":"unsuccess";
     }
 
     public BienImmobilier BienImmobilierGetter(ContratDTO unContrat){
         return bienImmobilierDAO.findFromDTO(unContrat.getAdresse(),
                 Integer.toString(unContrat.getNum_rue()),
-                Integer.parseInt(unContrat.getPorte()),
+                unContrat.getPorte(),
                 unContrat.getEtage(),
                 unContrat.getNbPieces());
     }

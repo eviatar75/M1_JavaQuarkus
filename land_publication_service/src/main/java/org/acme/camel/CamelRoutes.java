@@ -24,6 +24,7 @@ public class CamelRoutes extends RouteBuilder {
     @Inject
     LocalDateSerialBean serializer;
 
+
     @Override
     public void configure() throws Exception {
         camelContext.setTracing(true);
@@ -36,8 +37,9 @@ public class CamelRoutes extends RouteBuilder {
                 .bean(translator, "extractTokens")
                 //split
                 .split(body())
-                .log("Incoming request 1 : ${header.ActeID} ")
-                .log("Incoming request 2 : ${body} ")
+                //log
+                .log("Incoming request acte ID : ${header.ActeID} ")
+                .log("Incoming request body : ${body} ")
                 .to("direct:splitqueue");
 
 
@@ -56,6 +58,7 @@ public class CamelRoutes extends RouteBuilder {
                 .log("Incoming request dto2 : ${body} ")
                 .to("jms:queue/ServiceDeVerification2")
 
+
                 .when(simple("${body} is 'org.acme.DTO.Service3DTO'"))
                 .bean(serializer,"serialDTO")
                 .log("Incoming request dto3 : ${body} ")
@@ -64,7 +67,15 @@ public class CamelRoutes extends RouteBuilder {
                 .when(simple("${body} is 'org.acme.DTO.Service4DTO'"))
                 .bean(serializer,"serialDTO")
                 .log("Incoming request dto4 : ${body} ")
-                .to("jms:queue/ServiceDeVerification4").stop().end();
+                .to("jms:queue/ServiceDeVerification4");
+
+        from("jms:queue/responseToLandService")
+                .log("le body reçu par l'aggragator: ${body} ")
+                .log("les hearders reçu par l'agrregator : ${headers} ")
+                .aggregate(header("ActeID"),new MyAggregationStrategy()).completionSize(4).stop()
+                .log("le body crée par l'aggragator: ${body} ")
+                .log("les hearders crée par l'agrregator : ${headers} ")
+                .to("jms:queue/landServiceResponse");
     }
 
 

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.acme.DTO.ContratDeVenteBrokerDTO;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
+import org.apache.camel.Expression;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.dataformat.JsonLibrary;
@@ -27,7 +28,7 @@ public class CamelRoutes extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        camelContext.setTracing(true);
+        //camelContext.setTracing(true);
 
         //Ici on reçoit les informations complétes de notre acte de vente
         from("jms:queue/NotaireToLandServicequeue")
@@ -69,13 +70,14 @@ public class CamelRoutes extends RouteBuilder {
                 .log("Incoming request dto4 : ${body} ")
                 .to("jms:queue/ServiceDeVerification4");
 
+
         from("jms:queue/responseToLandService")
                 .log("le body reçu par l'aggragator: ${body} ")
                 .log("les hearders reçu par l'agrregator : ${headers} ")
                 .aggregate(header("ActeID"),new MyAggregationStrategy()).completionSize(4).stop()
                 .log("le body crée par l'aggragator: ${body} ")
-                .log("les hearders crée par l'agrregator : ${headers} ")
-                .to("jms:queue/landServiceResponse");
+                .log("les hearders crée par l'aggregator : ${headers} ")
+                .to("jms:queue/responseToNotary");
     }
 
 

@@ -4,10 +4,7 @@ package org.acme.camel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.acme.DTO.ContratDeVenteBrokerDTO;
-import org.apache.camel.Builder;
-import org.apache.camel.CamelContext;
-import org.apache.camel.Exchange;
-import org.apache.camel.Processor;
+import org.apache.camel.*;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.dataformat.JsonLibrary;
 import org.apache.camel.spi.DataFormat;
@@ -26,16 +23,23 @@ public class CamelRoutes extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        camelContext.setTracing(true);
+        //camelContext.setTracing(true);
         from("direct:cli")
                 .process(new Processoring())
-                .to("jms:queue/NotaireToLandServicequeue")
+                .to("jms:queue/NotaireToLandService");
+
+        from("jms:queue/responseToNotary")
                 .choice()
-                .when(header("success").isEqualTo(false))
-                .setBody(simple("L'acte de vente ne peut être validé "))
+
+                .when(((body()).isEqualTo("success")))
                 .log(body().toString())
+                //.bean() a faire ?
+
                 .otherwise()
-                .log("à faire");
+                .log(body().toString());
+
+
+
 
     }
 

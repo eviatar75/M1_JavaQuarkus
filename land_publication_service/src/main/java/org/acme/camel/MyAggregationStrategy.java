@@ -6,6 +6,8 @@ import org.apache.camel.Message;
 
 import java.util.Objects;
 
+import static org.apache.camel.builder.Builder.simple;
+
 public class MyAggregationStrategy implements AggregationStrategy {
     public Exchange aggregate(Exchange oldExchange, Exchange newExchange) {
         Message newIn = newExchange.getIn();
@@ -13,21 +15,21 @@ public class MyAggregationStrategy implements AggregationStrategy {
         String newBody = newIn.getBody(String.class);
 
         if (oldBody.equals("")){
-            newIn.setBody(newBody);
+            newIn.setBody(simple(newBody));
         }
         else if (oldBody.equals("success") && newBody.equals("success")){
-            newIn.setBody("success");
+            newIn.setBody(simple("success"));
         }
         else if (!(oldBody.equals("success")) && !(newBody.equals("success"))){
-            newIn.setBody(oldBody + newBody);
+            newIn.setBody(simple(oldBody + newBody));
         }
 
         else if (!(oldBody.equals("success"))){
-            newIn.setBody(oldBody);
+            newIn.setBody(simple(oldBody));
         }
 
         else {
-            newIn.setBody(newBody);
+            newIn.setBody(simple(newBody));
         }
 
         return newExchange;

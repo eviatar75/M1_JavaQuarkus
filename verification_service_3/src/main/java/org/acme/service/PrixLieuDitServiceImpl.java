@@ -12,8 +12,8 @@ public class PrixLieuDitServiceImpl implements PrixLieuDitService{
     PrixLieuDitDAO pldd;
 
     @Override
-    public boolean comparePrixLieuDit(double prixM2, int codePostal) throws PrixLieuDitNotFound {
+    public boolean comparePrixLieuDit(double prixM2BienImmobilier, int codePostal) throws PrixLieuDitNotFound {
         PrixLieuDit prixLieuDit = pldd.findByCodePostal(codePostal);
-        return(prixLieuDit.getPrixMinM2()==prixM2);
+        return(prixLieuDit.getPrixMinM2()<=prixM2BienImmobilier);
     }
 }

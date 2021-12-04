@@ -17,9 +17,7 @@ public class ContratDeVenteBrokerDTO {
     int codePostal;
     int etage;
     int porte;
-
     int prix;
-
     int nbPiece;
     int superficie;
 

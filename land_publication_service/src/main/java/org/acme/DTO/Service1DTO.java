@@ -1,5 +1,8 @@
 package org.acme.DTO;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Service1DTO {
 
     Long vendeur;
@@ -8,6 +11,7 @@ public class Service1DTO {
     int code_postal;
     int etage;
     int porte;
+    List<Long> ancienProprietaires = new ArrayList<Long>();
 
     public Long getVendeur() {
         return vendeur;
@@ -17,11 +21,11 @@ public class Service1DTO {
         this.vendeur = vendeur;
     }
 
-    public int getNum_rue() {
+    public int getNumero_rue() {
         return numero_rue;
     }
 
-    public void setNum_rue(int num_rue) {
+    public void setNumero_rue(int num_rue) {
         this.numero_rue = num_rue;
     }
 
@@ -56,15 +60,24 @@ public class Service1DTO {
         this.porte = porte;
     }
 
+    public List<Long> getAncienProprietaires() {
+        return ancienProprietaires;
+    }
+
+    public void setAncienProprietaires(List<Long> ancienProprietaires) {
+        this.ancienProprietaires = ancienProprietaires;
+    }
+
     @Override
     public String toString() {
-        return "\n\nService1DTO{" +
+        return "Service1DTO{" +
                 "vendeur=" + vendeur +
-                ", num_rue=" + numero_rue +
+                ", numero_rue=" + numero_rue +
                 ", adresse='" + adresse + '\'' +
                 ", code_postal=" + code_postal +
                 ", etage=" + etage +
-                ", porte='" + porte + '\'' +
-                '}'+"\n\n";
+                ", porte=" + porte +
+                ", ancienProprietaires=" + ancienProprietaires +
+                '}';
     }
 }

@@ -23,7 +23,7 @@ public class TranslatorBean {
         service1exchange.setCode_postal(exchange.getCodePostal());
         service1exchange.setEtage(exchange.getEtage());
         service1exchange.setPorte(exchange.getPorte());
-        service1exchange.setNum_rue(exchange.getNumeroRue());
+        service1exchange.setNumero_rue(exchange.getNumeroRue());
         service1exchange.setVendeur(exchange.getVendeur());
 
         service2exchange.setAmiante(exchange.isAmiante());

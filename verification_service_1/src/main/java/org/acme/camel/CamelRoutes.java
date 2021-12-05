@@ -22,7 +22,7 @@ public class CamelRoutes extends RouteBuilder {
         context.setTracing(true);
         from("jms:queue/ServiceDeVerification1")
                 .unmarshal().json(ContratDTO.class)
-               // .bean(service,"Checker")
+                .bean(service,"Checker")
                 .choice().when(header("success"))
                 .setBody(simple("succes"))
                 .otherwise()

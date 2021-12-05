@@ -28,10 +28,10 @@ public class CamelRoutes extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        //camelContext.setTracing(true);
+        camelContext.setTracing(true);
 
         //Ici on reçoit les informations complétes de notre acte de vente
-        from("jms:queue/NotaireToLandServicequeue")
+        from("jms:queue/NotaireToLandService")
                 //translate to dto
                 .process(new Processoring())
                 //translate Big dto to a list of dto for our 4 services

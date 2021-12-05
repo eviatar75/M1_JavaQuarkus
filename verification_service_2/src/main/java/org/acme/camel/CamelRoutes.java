@@ -1,10 +1,13 @@
 package org.acme.camel;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.quarkus.runtime.ShutdownEvent;
 import io.quarkus.runtime.StartupEvent;
 import org.acme.DTO.VerifCritereDeBienDTO;
 import org.acme.service.VerifCritereDeBien;
 import org.apache.camel.CamelContext;
+import org.apache.camel.Exchange;
+import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 //import org.acme.service.VerifCritereDeBien;
 
@@ -22,16 +25,43 @@ public class CamelRoutes extends RouteBuilder {
     @Inject
     CamelContext context;
 
+    @Inject
+    LocalDateSerialBean serializor;
+
+
     @Override
     public void configure() throws Exception {
-        context.addService(vcdb);
-        context.setTracing(true);
-        from("jms:queue/ServiceDeVerification2")
-                .unmarshal().json(VerifCritereDeBienDTO.class)
-                .log("json unmarshal to verifcriteredebiendto")
-                .bean(vcdb,"checkService2")
-                .to("jms:queue/responseToLandService")
-        ;
 
+        from("jms:queue/ServiceDeVerification2")
+                .process(new Processoring())
+                .log("json unmarshal to verifcriteredebiendto")
+                .log("voici le contenu du service 2 ${body}")
+                .bean(vcdb,"checkService2")
+                .bean(serializor,"serial")
+                .log("voici le contenu du service 2 ${body}")
+                .to("jms:queue/responseToLandService");
+
+
+
+
+    }
+
+
+    private static class Processoring implements Processor {
+        @Override
+        public void process(Exchange exchange) throws Exception {
+            ObjectMapper obj = new ObjectMapper();
+            //La ligne qui permet de faire passer les LocalDate
+            obj.findAndRegisterModules();
+            VerifCritereDeBienDTO isUnmarshal = obj.readValue( exchange.getMessage().getBody(String.class), VerifCritereDeBienDTO.class);
+            System.out.println("\n"+"\n"+"TEST CAMEL ALERT 2 "+"\n"+isUnmarshal);
+            exchange.getMessage().setBody(isUnmarshal);
+
+
+
+            System.out.println("\n"+"\n"+"TEST CAMEL ALERT 2 "+"\nL'id de l'acte de vente qui a ete processer est:"+exchange.getMessage().getHeader("ActeID"));
+
+
+        }
     }
 }

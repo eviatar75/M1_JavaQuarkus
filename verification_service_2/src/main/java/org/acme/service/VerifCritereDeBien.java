@@ -2,46 +2,44 @@ package org.acme.service;
 
 import org.acme.DTO.VerifCritereDeBienDTO;
 
+import javax.enterprise.context.ApplicationScoped;
 import java.time.LocalDate;
+import java.util.Objects;
 
+
+@ApplicationScoped
 public class VerifCritereDeBien {
 
     public boolean VerifCritereSuperficie(int superficie) {
-        if(superficie<8){
-            return false;
-        }
-        return true;
+        return superficie >= 8;
     }
 
     public boolean VerifCritereIndicePerfEnergetique(String indicePerfEnergetique) {
-        if(indicePerfEnergetique=="A" || indicePerfEnergetique=="B"
-                || indicePerfEnergetique=="C" || indicePerfEnergetique=="D"
-                ||indicePerfEnergetique=="E" || indicePerfEnergetique=="F" ||
-                indicePerfEnergetique=="G"){
-            // Si l'IPE>330kWHm²ans, les actes de vente devront
-            // mentionner que ce seuil sera à respecter à compter du 1er janvier 2028
-            return true;
-        }
-        return false;
+        // Si l'IPE>330kWHm²ans, les actes de vente devront
+        // mentionner que ce seuil sera à respecter à compter du 1er janvier 2028
+        return Objects.equals(indicePerfEnergetique, "A") || Objects.equals(indicePerfEnergetique, "B")
+                || Objects.equals(indicePerfEnergetique, "C") || Objects.equals(indicePerfEnergetique, "D")
+                || Objects.equals(indicePerfEnergetique, "E") || Objects.equals(indicePerfEnergetique, "F") ||
+                Objects.equals(indicePerfEnergetique, "G");
 
     }
 
 
     public boolean VerifCritereChauffage(String chauffage) {
-        if(chauffage == "électrique"){
+        if(Objects.equals(chauffage, "électrique")){
             // <3000kWh par an
             return true;
-        }else if(chauffage=="gaz"){
+        }else if(Objects.equals(chauffage, "gaz")){
             return false;
-        }else if(chauffage=="fioul"){
+        }else if(Objects.equals(chauffage, "fioul")){
             return true;
-        }else if(chauffage=="au bois"){
+        }else if(Objects.equals(chauffage, "au bois")){
             return true;
-        }else if(chauffage=="pompes à chaleur aérothermiques"){
+        }else if(Objects.equals(chauffage, "pompes à chaleur aérothermiques")){
             return true;
-        }else if(chauffage=="solaire"){
+        }else if(Objects.equals(chauffage, "solaire")){
             return true;
-        }else if(chauffage=="biomasse"){
+        }else if(Objects.equals(chauffage, "biomasse")){
             return true;
         }
         return false;
@@ -49,25 +47,17 @@ public class VerifCritereDeBien {
 
 
     public boolean VerifCritereDate(LocalDate dateConstruction) {
-        if(dateConstruction.getYear()<1800){
-            return false;
-        }
-        return true;
+        System.out.println(dateConstruction.getYear());
+        return dateConstruction.getYear() >= 1800;
     }
 
     public boolean VerifCritereIsolation(boolean isolation) {
-        if(isolation){
-            return false;
-        }
         return true;
     }
 
 
     public boolean VerifCritereAmiante(boolean amiante) {
-        if(amiante){
-            return false;
-        }
-        return true;
+        return !amiante;
     }
 
     public String checkService2(VerifCritereDeBienDTO verifCritereDeBienDTO){
@@ -76,7 +66,7 @@ public class VerifCritereDeBien {
                 && VerifCritereIsolation(verifCritereDeBienDTO.isIsolation())
                 && VerifCritereAmiante(verifCritereDeBienDTO.isAmiante())
                 && VerifCritereChauffage(verifCritereDeBienDTO.getChauffage())
-                && VerifCritereDate(verifCritereDeBienDTO.getDateConstruction())
+                && VerifCritereDate(verifCritereDeBienDTO.getDate_construction())
         )?"success":"unsucess");
     }
 }

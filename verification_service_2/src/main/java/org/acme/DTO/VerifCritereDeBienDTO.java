@@ -8,7 +8,7 @@ public class VerifCritereDeBienDTO {
     private String chauffage;
     private boolean isolation;
     private boolean amiante;
-    private LocalDate dateConstruction;
+    private LocalDate date_construction;
     private String indice_perf_energetique;
 
 
@@ -49,12 +49,12 @@ public class VerifCritereDeBienDTO {
         this.amiante = amiante;
     }
 
-    public LocalDate getDateConstruction() {
-        return dateConstruction;
+    public LocalDate getDate_construction() {
+        return date_construction;
     }
 
-    public void setDateConstruction(LocalDate dateConstruction) {
-        this.dateConstruction = dateConstruction;
+    public void setDate_construction(LocalDate date_construction) {
+        this.date_construction = date_construction;
     }
 
     public String getIndice_perf_energetique() {
@@ -65,4 +65,15 @@ public class VerifCritereDeBienDTO {
         this.indice_perf_energetique = indice_perf_energetique;
     }
 
+    @Override
+    public String toString() {
+        return "VerifCritereDeBienDTO{" +
+                "superficie=" + superficie +
+                ", chauffage='" + chauffage + '\'' +
+                ", isolation=" + isolation +
+                ", amiante=" + amiante +
+                ", dateConstruction=" + date_construction +
+                ", indice_perf_energetique='" + indice_perf_energetique + '\'' +
+                '}';
+    }
 }

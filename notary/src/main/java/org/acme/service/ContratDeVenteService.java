@@ -75,7 +75,7 @@ public class ContratDeVenteService implements Serializable {
             dtoActeDeVente.setAcheteur(a.getAcheteur().getSecurite_sociale());
             dtoActeDeVente.setVendeur(a.getVendeur().getSecurite_sociale());
 
-            dtoActeDeVente.setNumeroRue(a.getNumero_rue());
+            dtoActeDeVente.setNumero_rue(a.getNumero_rue());
             dtoActeDeVente.setRue(a.getRue());
             dtoActeDeVente.setCodePostal(a.getCode_postal());
             dtoActeDeVente.setEtage(a.getEtage());

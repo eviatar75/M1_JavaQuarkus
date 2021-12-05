@@ -12,7 +12,7 @@ import java.util.List;
 public class ContratDeVenteBrokerDTO {
     int id;
 
-    int numeroRue;
+    int numero_rue;
     String rue;
     int codePostal;
     int etage;
@@ -47,12 +47,12 @@ public class ContratDeVenteBrokerDTO {
         this.id = id;
     }
 
-    public int getNumeroRue() {
-        return numeroRue;
+    public int getNumero_rue() {
+        return numero_rue;
     }
 
-    public void setNumeroRue(int numeroRue) {
-        this.numeroRue = numeroRue;
+    public void setNumero_rue(int numeroRue) {
+        this.numero_rue = numeroRue;
     }
 
     public String getRue() {
@@ -197,7 +197,7 @@ public class ContratDeVenteBrokerDTO {
     public String toString() {
         return "ContratDeVenteDTO{" +
                 "id=" + id +
-                ", numeroRue=" + numeroRue +
+                ", numeroRue=" + numero_rue +
                 ", rue='" + rue + '\'' +
                 ", codePostal=" + codePostal +
                 ", etage=" + etage +

@@ -23,7 +23,7 @@ public class CamelRoutes extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        //camelContext.setTracing(true);
+        camelContext.setTracing(true);
         from("direct:cli")
                 .process(new Processoring())
                 .to("jms:queue/NotaireToLandService");

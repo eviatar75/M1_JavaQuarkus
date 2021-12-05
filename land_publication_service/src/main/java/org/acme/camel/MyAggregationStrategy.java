@@ -10,28 +10,29 @@ import static org.apache.camel.builder.Builder.simple;
 
 public class MyAggregationStrategy implements AggregationStrategy {
     public Exchange aggregate(Exchange oldExchange, Exchange newExchange) {
+
+        if (oldExchange==null){
+            return newExchange;
+        }
+
+
         Message newIn = newExchange.getIn();
         String oldBody = oldExchange.getIn().getBody(String.class);
         String newBody = newIn.getBody(String.class);
 
-        if (oldBody.equals("")){
-            newIn.setBody(simple(newBody));
-        }
-        else if (oldBody.equals("success") && newBody.equals("success")){
+
+        if (oldBody.equals("success") && newBody.equals("success")){
             newIn.setBody(simple("success"));
         }
         else if (!(oldBody.equals("success")) && !(newBody.equals("success"))){
             newIn.setBody(simple(oldBody + newBody));
         }
-
         else if (!(oldBody.equals("success"))){
             newIn.setBody(simple(oldBody));
         }
-
         else {
             newIn.setBody(simple(newBody));
         }
-
         return newExchange;
     }
 }

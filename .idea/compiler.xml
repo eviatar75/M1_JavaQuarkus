@@ -17,6 +17,7 @@
     <bytecodeTargetLevel>
       <module name="code-with-quarkus" target="11" />
       <module name="land_publication_service" target="11" />
+      <module name="M1_JavaQuarkus" target="1.5" />
       <module name="notaire" target="11" />
       <module name="notary" target="11" />
       <module name="verification_service_1" target="11" />

@@ -5,7 +5,7 @@ On propose de modéliser un système de vérification d'acte de vente à travers
 - Vérification de la liste des anciens et actuel propriétaires du bien.
 - Vérifications des critères du bien (superficie, concordance des données,...) <- A compléter 
 - Vérifier que le prix de vente est compris dans la fourchette des prix des autres biens présents dans le même quartier 
-- Vérifier de la concordance des dates <- A compléter  
+- Vérifier la concordance des dates <- A compléter  
 
 ## Interfaces
 

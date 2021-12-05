@@ -89,6 +89,7 @@ public class ContratDeVenteService implements Serializable {
             dtoActeDeVente.setDate_compromis_vente(a.getDate_compromis_vente());
             dtoActeDeVente.setDate_signature_acte(a.getDate_signature_vente());
             dtoActeDeVente.setPrix(a.getPrix());
+            dtoActeDeVente.setPorte(a.getPorte());
 
             gateway.sendActeDeVente(dtoActeDeVente);
 

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.acme</groupId>
   <artifactId>verification_service_1</artifactId>
@@ -14,10 +14,11 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
     <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
-    <quarkus.platform.version>2.4.1.Final</quarkus.platform.version>
+    <quarkus.platform.version>2.5.0.Final</quarkus.platform.version>
     <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
   </properties>
   <dependencyManagement>
+
     <dependencies>
       <dependency>
         <groupId>${quarkus.platform.group-id}</groupId>
@@ -79,6 +80,10 @@
     </dependency>
     <dependency>
       <groupId>org.apache.camel.quarkus</groupId>
+      <artifactId>camel-quarkus-bean</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.camel.quarkus</groupId>
       <artifactId>camel-quarkus-jms</artifactId>
     </dependency>
     <dependency>
@@ -98,6 +103,12 @@
       <groupId>io.rest-assured</groupId>
       <artifactId>rest-assured</artifactId>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-core-model</artifactId>
+      <version>3.13.0</version>
+      <scope>compile</scope>
     </dependency>
   </dependencies>
   <build>

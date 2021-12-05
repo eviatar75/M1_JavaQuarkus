@@ -41,12 +41,12 @@ public class ContratDTO {
         this.vendeur = vendeur;
     }
 
-    public int getNum_rue() {
+    public int getNumero_rue() {
         return numero_rue;
     }
 
-    public void setNum_rue(int num_rue) {
-        this.numero_rue = num_rue;
+    public void setNumero_rue(int numero_rue) {
+        this.numero_rue = numero_rue;
     }
 
     public String getAdresse() {
@@ -85,7 +85,7 @@ public class ContratDTO {
     public String toString() {
         return "\n\nService1DTO{" +
                 "vendeur=" + vendeur +
-                ", num_rue=" + numero_rue +
+                ", numero_rue=" + numero_rue +
                 ", adresse='" + adresse + '\'' +
                 ", code_postal=" + code_postal +
                 ", etage=" + etage +

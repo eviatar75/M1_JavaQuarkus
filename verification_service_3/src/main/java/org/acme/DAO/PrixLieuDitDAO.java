@@ -3,6 +3,7 @@ package org.acme.DAO;
 import org.acme.domain.PrixLieuDit;
 import org.acme.exception.PrixLieuDitNotFound;
 
+import javax.enterprise.context.ApplicationScoped;
 import java.util.List;
 
 public interface PrixLieuDitDAO {
@@ -10,7 +11,6 @@ public interface PrixLieuDitDAO {
 
     List<PrixLieuDit> getAllPrixLieuDit();
 
-    void createBasePrixLieuDit();
 
 }
 

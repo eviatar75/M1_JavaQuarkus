@@ -5,8 +5,10 @@ import org.acme.DTO.PrixDeVenteDTO;
 import org.acme.domain.PrixLieuDit;
 import org.acme.exception.PrixLieuDitNotFound;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
+@ApplicationScoped
 public class PrixLieuDitServiceImpl implements PrixLieuDitService{
 
     @Inject

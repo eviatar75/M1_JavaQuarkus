@@ -21,10 +21,15 @@ public class CheckerServiceImpl implements CheckerService{
     @Inject
     BienImmobilierDAOImpl bienImmobilierDAO;
 
-    public Boolean isHypotheque(ContratDTO unContrat){
+    public Boolean isHypotheque(ContratDTO unContrat) throws PersonneNotFound {
+        try {
+            BienImmobilier bienImmobilier = BienImmobilierGetter(unContrat);
+            return bienImmobilier.getStatutHypoteque();
+        }
+        catch (PersonneNotFound e){
+            return false;
+        }
 
-        BienImmobilier bienImmobilier = BienImmobilierGetter(unContrat);
-        return bienImmobilier.getStatutHypoteque();
     }
 
     public Boolean isAncienProprietairesMatching(ContratDTO unContrat) throws PersonneNotFound {
@@ -38,9 +43,9 @@ public class CheckerServiceImpl implements CheckerService{
         return isAncienProprietairesMatching(unContrat)&&isHypotheque(unContrat)?"success":"unsuccess";
     }
 
-    public BienImmobilier BienImmobilierGetter(ContratDTO unContrat){
+    public BienImmobilier BienImmobilierGetter(ContratDTO unContrat) throws PersonneNotFound {
         return bienImmobilierDAO.findFromDTO(unContrat.getAdresse(),
-                Integer.toString(unContrat.getNum_rue()),
+                Integer.toString(unContrat.getNumero_rue()),
                 unContrat.getPorte(),
                 unContrat.getEtage(),
                 unContrat.getNbPieces());

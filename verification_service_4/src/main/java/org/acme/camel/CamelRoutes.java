@@ -1,6 +1,7 @@
-package org.acme;
+package org.acme.camel;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.acme.Service4DTO;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;

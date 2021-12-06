@@ -29,6 +29,8 @@ public class CamelRoutes extends RouteBuilder {
     @Override
     public void configure() throws Exception {
 
+        String result;
+
         //Ici on reçoit les informations complétes de notre acte de vente
         from("jms:queue/NotaireToLandService")
                 //translate to dto
@@ -75,7 +77,13 @@ public class CamelRoutes extends RouteBuilder {
                 .log("les hearders reçu par l'agrregator : ${headers} ")
                 .aggregate(header("ActeID"),new MyAggregationStrategy()).completionSize(4).completionTimeout("5000").discardOnCompletionTimeout()
                 .log("le body crée par l'aggragator après l'aggregation: ${body} ")
+                .choice()
+                .when(body().isEqualTo("success"))
+                .setHeader("success",simple("true"))
                 .log("les hearders crée par l'aggregator : ${headers} ")
+                .to("jms:queue/responseToNotary")
+                .otherwise()
+                .log("les hearders crée par l'aggregator en false : ${headers} ")
                 .to("jms:queue/responseToNotary");
     }
 

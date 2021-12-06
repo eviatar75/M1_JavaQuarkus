@@ -14,26 +14,37 @@ public class MyAggregationStrategy implements AggregationStrategy {
         Message newIn = newExchange.getIn();
 
         if (oldExchange==null){
-            newIn.setBody(simple("unsuccess"));
             return newExchange;
         }
 
 
         String oldBody = oldExchange.getIn().getBody(String.class);
+        System.out.println(oldBody+"\n");
         String newBody = newIn.getBody(String.class);
+        System.out.println(newBody+"\n");
 
 
-        if (oldBody.equals("success") && newBody.equals("success")){
-            newIn.setBody(simple("success"));
+        if (oldBody.trim().equals("\"success\"") && newBody.trim().equals("\"success\"")
+                || (oldBody.trim().equals("success") && newBody.trim().equals("success"))
+                ||(oldBody.trim().equals("\"success\"") && newBody.trim().equals("success"))
+                ||(oldBody.trim().equals("success") && newBody.trim().equals("\"success\""))){
+            System.out.println("success/success\n");
+            newIn.setBody("success");
         }
-        else if (!(oldBody.equals("success")) && !(newBody.equals("success"))){
-            newIn.setBody(simple(oldBody + newBody));
+        else if (!oldBody.trim().equals("\"success\"") && !newBody.trim().equals("\"success\"")
+                || !(oldBody.trim().equals("success") && !newBody.trim().equals("success"))
+                ||!(oldBody.trim().equals("\"success\"") && !newBody.trim().equals("success"))
+                ||!(oldBody.trim().equals("success") && !newBody.trim().equals("\"success\""))){
+            System.out.println("unsuccess/unsuccess\n");
+            newIn.setBody(oldBody + newBody);
         }
-        else if (!(oldBody.equals("success"))){
-            newIn.setBody(simple(oldBody));
+        else if (!(oldBody.trim().equals("\"success\""))&&!(oldBody.trim().equals("success"))){
+            System.out.println("unsuccess/success\n");
+            newIn.setBody(oldBody);
         }
         else {
-            newIn.setBody(simple(newBody));
+            System.out.println("success/unsuccess\n");
+            newIn.setBody(newBody);
         }
         return newExchange;
     }

@@ -40,19 +40,12 @@ public class CheckerServiceImpl implements CheckerService{
     }
 
     public String Checker(ContratDTO unContrat) throws PersonneNotFound {
-        return isAncienProprietairesMatching(unContrat)&&isHypotheque(unContrat)?"success":"unsuccess";
+
+        return isAncienProprietairesMatching(unContrat)&&!isHypotheque(unContrat)?"success":"unsuccess";
+
     }
 
     public BienImmobilier BienImmobilierGetter(ContratDTO unContrat) throws PersonneNotFound {
-
-        System.out.println(unContrat.getAdresse()+
-                unContrat.getNumero_rue()+
-                unContrat.getPorte()+
-                unContrat.getEtage()+
-                unContrat.getNbPieces());
-
-
-
 
         return bienImmobilierDAO.findFromDTO(
 
@@ -60,7 +53,7 @@ public class CheckerServiceImpl implements CheckerService{
                 Integer.toString(unContrat.getNumero_rue()),
                 Integer.toString(unContrat.getPorte()),
                 unContrat.getEtage(),
-                unContrat.getNbPieces());
+                Integer.toString(unContrat.getCode_postal()));
 
 
     }

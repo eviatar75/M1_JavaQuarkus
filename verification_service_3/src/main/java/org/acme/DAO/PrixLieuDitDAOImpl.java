@@ -6,14 +6,17 @@ import org.acme.exception.PrixLieuDitNotFound;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.NoResultException;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @ApplicationScoped
 public class PrixLieuDitDAOImpl implements PrixLieuDitDAO, PanacheRepository<PrixLieuDit> {
     @Override
+    @Transactional
     public PrixLieuDit findByCodePostal(int codePostal) throws PrixLieuDitNotFound {
         try{
-            return find("codePostal", codePostal).firstResult();
+
+            return PrixLieuDit.findById(Integer.toString(codePostal));
         }
         catch(NoResultException e){
             throw new PrixLieuDitNotFound();

@@ -24,6 +24,7 @@ public class CamelRoutes extends RouteBuilder {
                 .log("json unmarshal to prixdeventedto")
                 .bean(plds,"checkService3")
                 .log("voici le contenu du service 3 ${body}")
+                .marshal().json()
                 .to("jms:queue/responseToLandService")
         ;
 

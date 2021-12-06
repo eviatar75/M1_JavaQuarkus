@@ -18,18 +18,14 @@ public class BienImmobilierDAOImpl implements  BienImmobillierDAO{
 
     @Override
     @ActivateRequestContext
-    public BienImmobilier findFromDTO(String rue, String numeroRue, String porte, int etage, int nbPiece) {
-        int id = 1;
-        BienImmobilier bien1 = (BienImmobilier) em.createQuery("select  b from  BienImmobilier b where b.id=:id").setParameter("id",id).getSingleResult();
-        System.out.println(bien1);
+    public BienImmobilier findFromDTO(String rue, String numeroRue, String porte, int etage, String code_postal) {
 
-
-            BienImmobilier bien = (BienImmobilier) em.createQuery("select b from BienImmobilier b where b.rue=:rue and b.numeroRue=:numeroRue and b.porte=:porte and b.etage=:etage and b.nbPiece=:nbPiece")
+            BienImmobilier bien = (BienImmobilier) em.createQuery("select b from BienImmobilier b where b.rue=:rue and b.numeroRue=:numeroRue and b.porte=:porte and b.etage=:etage and b.codePostal=:code_postal")
                     .setParameter("rue", rue)
                     .setParameter("numeroRue", numeroRue)
                     .setParameter("porte", porte)
                     .setParameter("etage", etage)
-                    .setParameter("nbPiece", nbPiece).getSingleResult();
+                    .setParameter("code_postal", code_postal).getSingleResult();
 
             return bien;
 

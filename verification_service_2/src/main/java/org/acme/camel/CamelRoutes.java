@@ -37,8 +37,8 @@ public class CamelRoutes extends RouteBuilder {
                 .log("json unmarshal to verifcriteredebiendto")
                 .log("voici le contenu du service 2 ${body}")
                 .bean(vcdb,"checkService2")
-                .bean(serializor,"serial")
                 .log("voici le contenu du service 2 ${body}")
+                .bean(serializor,"serial")
                 .to("jms:queue/responseToLandService");
 
 

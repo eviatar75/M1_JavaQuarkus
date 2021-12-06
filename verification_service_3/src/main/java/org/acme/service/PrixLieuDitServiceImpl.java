@@ -22,7 +22,7 @@ public class PrixLieuDitServiceImpl implements PrixLieuDitService{
 
     @Override
     public String checkService3(PrixDeVenteDTO prixDeVenteDTO) throws PrixLieuDitNotFound {
-        return (comparePrixLieuDit(prixDeVenteDTO.getPrixM2(), prixDeVenteDTO.getCode_postal())?"sucess":"Unsucess, prix trop bas !");
+        return (comparePrixLieuDit(prixDeVenteDTO.getPrixM2(), prixDeVenteDTO.getCode_postal())?"success":"Unsucess, prix trop bas !");
     }
 
 

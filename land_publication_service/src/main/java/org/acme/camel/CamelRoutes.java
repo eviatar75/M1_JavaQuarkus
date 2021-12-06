@@ -83,6 +83,7 @@ public class CamelRoutes extends RouteBuilder {
                 .log("les hearders crée par l'aggregator : ${headers} ")
                 .to("jms:queue/responseToNotary")
                 .otherwise()
+                .setHeader("success",simple("false"))
                 .log("les hearders crée par l'aggregator en false : ${headers} ")
                 .to("jms:queue/responseToNotary");
     }

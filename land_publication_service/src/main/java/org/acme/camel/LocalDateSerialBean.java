@@ -10,7 +10,7 @@ public class LocalDateSerialBean {
             ObjectMapper obj = new ObjectMapper();
             obj.findAndRegisterModules();
             String jsondto = obj.writeValueAsString(dto);
-            System.out.println("\n"+"\n"+"LA CONVERSION DU DTO1 EN JSON A MARCHE ");
+            //System.out.println("\n"+"\n"+"LA CONVERSION DU DTO EN JSON POUR L'envoie A MARCHE ");
             return jsondto;
         }
 

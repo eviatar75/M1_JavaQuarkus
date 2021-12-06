@@ -52,7 +52,7 @@ public class VerifCritereDeBien {
     }
 
     public boolean VerifCritereIsolation(boolean isolation) {
-        return true;
+        return isolation;
     }
 
 

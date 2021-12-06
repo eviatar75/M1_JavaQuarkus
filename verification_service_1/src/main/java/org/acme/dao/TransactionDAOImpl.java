@@ -1,5 +1,6 @@
 package org.acme.dao;
 
+import org.acme.domain.Transaction;
 import org.acme.exception.PersonneNotFound;
 import org.acme.domain.Personne;
 
@@ -8,6 +9,7 @@ import javax.enterprise.context.control.ActivateRequestContext;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import java.util.ArrayList;
 import java.util.List;
 
 @ApplicationScoped
@@ -18,26 +20,29 @@ public class TransactionDAOImpl implements TransactionDAO{
     EntityManager em;
     @Override
     @ActivateRequestContext
-    public List<Personne> getAnciensProprietaires(int idBien) throws PersonneNotFound {
+    public List<Personne> getAnciensProprietaires(int idBien) {
         try {
-            List ancienPropretaires = em.createQuery("select acheteur from Transaction where Transaction.id=:idBien").setParameter("idBien",idBien).getResultList();
+            List<Transaction> transactions = em.createQuery("select t from Transaction t where t.bien.id=:idBien").setParameter("idBien", idBien).getResultList();
+            List ancienPropretaires = new ArrayList<Personne>();
+            for (Transaction t:transactions )
+                ancienPropretaires.add(t.getAcheteur());
             return ancienPropretaires;
         }
+
         catch (NoResultException e){
-            throw new PersonneNotFound();
+            return  null;
         }
     }
 
     @Override
     @ActivateRequestContext
-    public List<Personne> getPersonnesFromIds(List<Long> ids)throws PersonneNotFound{
-        try {
-            List personnes = em.createQuery("select p from Personne p where p.id in :ids").setParameter("ids",ids).getResultList();
-            return personnes;
-        }
-        catch (NoResultException e){
-            throw new PersonneNotFound();
-        }
-
+    public List<Personne> getPersonnesFromIds(List<Long> ids){
+            try {
+                List personnes = em.createQuery("select p from Personne p where p.id in :ids").setParameter("ids",ids).getResultList();
+                return personnes;
+            }
+            catch (NoResultException e){
+                return  null;
+            }
     }
 }

@@ -12,16 +12,6 @@ public class ContratDTO {
     int code_postal;
     int etage;
     int porte;
-
-    public int getNbPieces() {
-        return nbPieces;
-    }
-
-    public void setNbPieces(int nbPieces) {
-        this.nbPieces = nbPieces;
-    }
-
-    int nbPieces;
     List<Long> ancienProprietaires = new ArrayList<Long>();
 
 

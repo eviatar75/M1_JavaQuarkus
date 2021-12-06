@@ -9,6 +9,8 @@ import org.acme.exception.PersonneNotFound;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.persistence.NoResultException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
@@ -21,40 +23,47 @@ public class CheckerServiceImpl implements CheckerService{
     @Inject
     BienImmobilierDAOImpl bienImmobilierDAO;
 
-    public Boolean isHypotheque(ContratDTO unContrat) throws PersonneNotFound {
-        try {
+    public Boolean isHypotheque(ContratDTO unContrat){
             BienImmobilier bienImmobilier = BienImmobilierGetter(unContrat);
             return bienImmobilier.getStatutHypoteque();
-        }
-        catch (PersonneNotFound e){
-            return false;
-        }
-
     }
 
-    public Boolean isAncienProprietairesMatching(ContratDTO unContrat) throws PersonneNotFound {
+    public Boolean isAncienProprietairesMatching(ContratDTO unContrat){
         BienImmobilier bienImmobilier = BienImmobilierGetter(unContrat);
-        List<Personne> ancienProprietaireLocal = transactionDAO.getAnciensProprietaires(bienImmobilier.getId());
-        List<Personne> ancienProprietaireContrat = transactionDAO.getPersonnesFromIds(unContrat.getAncienProprietaires());
+        System.out.println("debug voici l'id du bien "+bienImmobilier.getId());
+        List<Personne> ancienProprietaireLocal=new ArrayList<>();
+        if (bienImmobilier!=null)
+            ancienProprietaireLocal = transactionDAO.getAnciensProprietaires(bienImmobilier.getId());
+        List<Personne> ancienProprietaireContrat=new ArrayList<>();
+        if(unContrat.getAncienProprietaires().size()!=0)
+            ancienProprietaireContrat = transactionDAO.getPersonnesFromIds(unContrat.getAncienProprietaires());
+        if(ancienProprietaireContrat.size()==0 && ancienProprietaireLocal.size()==0)
+            return true;
         return ancienProprietaireContrat.size() == ancienProprietaireLocal.size() && new HashSet<Personne>(ancienProprietaireContrat).containsAll(new HashSet<Personne>(ancienProprietaireLocal));
     }
 
-    public String Checker(ContratDTO unContrat) throws PersonneNotFound {
+    public String Checker(ContratDTO unContrat){
 
-        return isAncienProprietairesMatching(unContrat)&&!isHypotheque(unContrat)?"success":"unsuccess";
+        boolean match = isAncienProprietairesMatching(unContrat);
+        boolean hypoteque = isHypotheque(unContrat);
+
+        if (match && !hypoteque)
+            return "success";
+        String error = "";
+        if (!match)
+            error+="liste d'anciens propriétaire éronnée ";
+        if (hypoteque)
+            error+="bien hypotequé";
+        return error;
 
     }
 
-    public BienImmobilier BienImmobilierGetter(ContratDTO unContrat) throws PersonneNotFound {
-
-        return bienImmobilierDAO.findFromDTO(
-
-                unContrat.getAdresse(),
-                Integer.toString(unContrat.getNumero_rue()),
-                Integer.toString(unContrat.getPorte()),
-                unContrat.getEtage(),
-                Integer.toString(unContrat.getCode_postal()));
-
-
+    public BienImmobilier BienImmobilierGetter(ContratDTO unContrat){
+        return  bienImmobilierDAO.findFromDTO(
+                    unContrat.getAdresse(),
+                    Integer.toString(unContrat.getNumero_rue()),
+                    Integer.toString(unContrat.getPorte()),
+                    unContrat.getEtage(),
+                    Integer.toString(unContrat.getCode_postal()));
     }
 }

@@ -20,6 +20,7 @@ public class BienImmobilierDAOImpl implements  BienImmobillierDAO{
     @ActivateRequestContext
     public BienImmobilier findFromDTO(String rue, String numeroRue, String porte, int etage, String code_postal) {
 
+        try {
             BienImmobilier bien = (BienImmobilier) em.createQuery("select b from BienImmobilier b where b.rue=:rue and b.numeroRue=:numeroRue and b.porte=:porte and b.etage=:etage and b.codePostal=:code_postal")
                     .setParameter("rue", rue)
                     .setParameter("numeroRue", numeroRue)
@@ -28,6 +29,11 @@ public class BienImmobilierDAOImpl implements  BienImmobillierDAO{
                     .setParameter("code_postal", code_postal).getSingleResult();
 
             return bien;
+        }
+        catch (NoResultException e){
+            return null;
+        }
+
 
     }
 

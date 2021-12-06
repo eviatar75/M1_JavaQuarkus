@@ -2,7 +2,6 @@ package org.acme.DAO;
 
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import org.acme.domain.PrixLieuDit;
-import org.acme.exception.PrixLieuDitNotFound;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.NoResultException;
@@ -13,19 +12,26 @@ import java.util.List;
 public class PrixLieuDitDAOImpl implements PrixLieuDitDAO, PanacheRepository<PrixLieuDit> {
     @Override
     @Transactional
-    public PrixLieuDit findByCodePostal(int codePostal) throws PrixLieuDitNotFound {
+    public PrixLieuDit findByCodePostal(int codePostal){
         try{
 
             return PrixLieuDit.findById(Integer.toString(codePostal));
         }
         catch(NoResultException e){
-            throw new PrixLieuDitNotFound();
+            return null;
         }
     }
 
     @Override
+    @Transactional
     public List<PrixLieuDit> getAllPrixLieuDit() {
-        return listAll();
+        try{
+            return listAll();
+        }
+        catch (NoResultException e){
+            return null;
+        }
+
     }
 
 }

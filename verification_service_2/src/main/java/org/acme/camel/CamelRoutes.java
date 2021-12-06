@@ -55,8 +55,9 @@ public class CamelRoutes extends RouteBuilder {
             obj.findAndRegisterModules();
             VerifCritereDeBienDTO isUnmarshal = obj.readValue( exchange.getMessage().getBody(String.class), VerifCritereDeBienDTO.class);
             System.out.println("\n"+"\n"+"TEST CAMEL ALERT 2 "+"\n"+isUnmarshal);
-            exchange.getMessage().setBody(isUnmarshal);
 
+            exchange.getMessage().setBody(isUnmarshal);
+            exchange.getMessage().setHeader("SERVICE","2");
 
 
             System.out.println("\n"+"\n"+"TEST CAMEL ALERT 2 "+"\nL'id de l'acte de vente qui a ete processer est:"+exchange.getMessage().getHeader("ActeID"));

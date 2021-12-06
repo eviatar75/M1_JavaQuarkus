@@ -6,17 +6,19 @@ import org.apache.camel.Message;
 
 import java.util.Objects;
 
+import static org.apache.camel.builder.Builder.body;
 import static org.apache.camel.builder.Builder.simple;
 
 public class MyAggregationStrategy implements AggregationStrategy {
     public Exchange aggregate(Exchange oldExchange, Exchange newExchange) {
+        Message newIn = newExchange.getIn();
 
         if (oldExchange==null){
+            newIn.setBody(simple("unsuccess"));
             return newExchange;
         }
 
 
-        Message newIn = newExchange.getIn();
         String oldBody = oldExchange.getIn().getBody(String.class);
         String newBody = newIn.getBody(String.class);
 

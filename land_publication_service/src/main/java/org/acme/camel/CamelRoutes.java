@@ -28,7 +28,6 @@ public class CamelRoutes extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        camelContext.setTracing(true);
 
         //Ici on reçoit les informations complétes de notre acte de vente
         from("jms:queue/NotaireToLandService")
@@ -39,43 +38,43 @@ public class CamelRoutes extends RouteBuilder {
                 //split
                 .split(body())
                 //log
-                .log("Incoming request acte ID : ${header.ActeID} ")
-                .log("Incoming request body : ${body} ")
+                .log("DEPART VERS LES SERVICES: SPLITTED request acte ID : ${header.ActeID} ")
+                .log("DEPART VERS LES SERVICES:  SPLITTED request body : ${body} ")
                 .to("direct:splitqueue");
 
 
 
 
         from("direct:splitqueue")
-                .choice()
 
+                .choice()
                 .when(simple("${body} is 'org.acme.DTO.Service1DTO'"))
                 .bean(serializer,"serialDTO")
-                .log("Incoming request dto1 : ${body} ")
+                //.log("Incoming request dto1 : ${body} ")
                 .to("jms:queue/ServiceDeVerification1")
 
                 .when(simple("${body} is 'org.acme.DTO.Service2DTO'"))
                 .bean(serializer,"serialDTO")
-                .log("Incoming request dto2 : ${body} ")
+                //.log("Incoming request dto2 : ${body} ")
                 .to("jms:queue/ServiceDeVerification2")
 
 
                 .when(simple("${body} is 'org.acme.DTO.Service3DTO'"))
                 .bean(serializer,"serialDTO")
-                .log("Incoming request dto3 : ${body} ")
+                //.log("Incoming request dto3 : ${body} ")
                 .to("jms:queue/ServiceDeVerification3")
 
                 .when(simple("${body} is 'org.acme.DTO.Service4DTO'"))
                 .bean(serializer,"serialDTO")
-                .log("Incoming request dto4 : ${body} ")
+                //.log("Incoming request dto4 : ${body} ")
                 .to("jms:queue/ServiceDeVerification4");
 
 
         from("jms:queue/responseToLandService")
                 .log("le body reçu par l'aggragator: ${body} ")
                 .log("les hearders reçu par l'agrregator : ${headers} ")
-                .aggregate(header("ActeID"),new MyAggregationStrategy()).completionSize(4).stop()
-                .log("le body crée par l'aggragator: ${body} ")
+                .aggregate(header("ActeID"),new MyAggregationStrategy()).completionSize(4).completionTimeout("5000").discardOnCompletionTimeout()
+                .log("le body crée par l'aggragator après l'aggregation: ${body} ")
                 .log("les hearders crée par l'aggregator : ${headers} ")
                 .to("jms:queue/responseToNotary");
     }

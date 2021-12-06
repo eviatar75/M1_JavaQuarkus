@@ -24,6 +24,7 @@ public class CamelRoutes extends RouteBuilder {
                 .unmarshal().json(ContratDTO.class)
                 .bean(service,"Checker")
                 .marshal().json()
+                .marshal().json()
                 .to("jms:queue/responseToLandService");
     }
 }

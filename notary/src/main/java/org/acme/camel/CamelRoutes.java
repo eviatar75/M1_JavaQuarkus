@@ -15,6 +15,7 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.json.bind.JsonbBuilder;
+import java.io.OutputStream;
 import java.util.ArrayList;
 
 @ApplicationScoped
@@ -38,11 +39,15 @@ public class CamelRoutes extends RouteBuilder {
 
                 .when(((body()).isEqualTo("success")))
                 .log(body().toString())
-                .process(new ProcessoringPdf())
-                .to("file:data/pdf")
+                //.process(new ProcessoringPdf())
+                ///.to("direct:pdf");
+                //bean creation pdf
 
                 .otherwise()
                 .log(body().toString());
+
+        from("direct:pdfgenerator")
+                .to("file:D:/pdf");
 
 
 
@@ -93,18 +98,20 @@ public class CamelRoutes extends RouteBuilder {
             }
         }
 
-        private class ProcessoringPdf implements Processor{
+        /*private class ProcessoringPdf implements Processor{*/
 
-            @Override
+            /*@Override
             public void process(Exchange exchange) throws Exception {
-
-                System.out.println("passe bien pour le pdf");
+                //ProducerTemplate template = camelContext.createProducerTemplate();
+                /*System.out.println("passe bien pour le pdf");
                 String text = "test";
-                PDDocument document= gps.creationPDF(text);
+                OutputStream document= gps.creationPDF(text);
                 exchange.getMessage().setBody(document);
                 System.out.println("pdf bien créé");
-            }
-        }
+                System.out.println(exchange.getMessage().getBody().toString());
+                template.sendBodyAndHeader("direct:pdf", document, exchange.getMessage().getHeader("ActeId"));*/
+           // }
+        //}
 
 
 

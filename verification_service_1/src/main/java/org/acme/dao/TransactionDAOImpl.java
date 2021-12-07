@@ -36,7 +36,7 @@ public class TransactionDAOImpl implements TransactionDAO{
 
     @Override
     @ActivateRequestContext
-    public List<Personne> getPersonnesFromIds(List<Long> ids){
+    public List<Personne> getPersonnesFromIds(List<String> ids){
             try {
                 List personnes = em.createQuery("select p from Personne p where p.id in :ids").setParameter("ids",ids).getResultList();
                 return personnes;

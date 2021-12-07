@@ -130,4 +130,21 @@ public class Personne {
     public void setId(String id) {
         this.id = id;
     }
+
+    @java.lang.Override
+    public java.lang.String toString() {
+        return "Personne{" +
+                "id='" + id + '\'' +
+                ", nom='" + nom + '\'' +
+                ", prenom='" + prenom + '\'' +
+                ", rue='" + rue + '\'' +
+                ", numeroRue='" + numeroRue + '\'' +
+                ", codePostal='" + codePostal + '\'' +
+                ", dateNaissance=" + dateNaissance +
+                ", lieuNaissance='" + lieuNaissance + '\'' +
+                ", statutMaritale='" + statutMaritale + '\'' +
+                ", telephone='" + telephone + '\'' +
+                ", mail='" + mail + '\'' +
+                '}';
+    }
 }

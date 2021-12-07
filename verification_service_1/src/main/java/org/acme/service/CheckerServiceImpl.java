@@ -23,35 +23,15 @@ public class CheckerServiceImpl implements CheckerService{
     @Inject
     BienImmobilierDAOImpl bienImmobilierDAO;
 
-    /*public Boolean isHypotheque(ContratDTO unContrat){
-            BienImmobilier bienImmobilier = BienImmobilierGetter(unContrat);
-            return bienImmobilier.getStatutHypoteque();
-    }*/
-
     public Boolean isHypotheque(ContratDTO unContrat){
         BienImmobilier bienImmobilier = BienImmobilierGetter(unContrat);
         return bienImmobilier!=null?bienImmobilier.getStatutHypoteque():false;
     }
 
-    /*public Boolean isAncienProprietairesMatching(ContratDTO unContrat){
-        BienImmobilier bienImmobilier = BienImmobilierGetter(unContrat);
-        System.out.println("debug voici l'id du bien "+bienImmobilier.getId());
-        List<Personne> ancienProprietaireLocal=new ArrayList<>();
-        if (bienImmobilier!=null)
-            ancienProprietaireLocal = transactionDAO.getAnciensProprietaires(bienImmobilier.getId());
-        List<Personne> ancienProprietaireContrat=new ArrayList<>();
-        if(unContrat.getAncienProprietaires().size()!=0)
-            ancienProprietaireContrat = transactionDAO.getPersonnesFromIds(unContrat.getAncienProprietaires());
-        if(ancienProprietaireContrat.size()==0 && ancienProprietaireLocal.size()==0)
-            return true;
-        return ancienProprietaireContrat.size() == ancienProprietaireLocal.size() && new HashSet<Personne>(ancienProprietaireContrat).containsAll(new HashSet<Personne>(ancienProprietaireLocal));
-    }*/
-
     public Boolean isAncienProprietairesMatching(ContratDTO unContrat){
         BienImmobilier bienImmobilier = BienImmobilierGetter(unContrat);
-
         //nouveau bien non repertorié en base
-        if (bienImmobilier==null) {
+        if (bienImmobilier==null){
             if(unContrat.getAncienProprietaires().size()==0)
                 return true;
             else
@@ -72,11 +52,24 @@ public class CheckerServiceImpl implements CheckerService{
 
         //Ancien proprietaire pour un bien
         List<Personne> ancienProprietaireContrat=new ArrayList<>();
-        if(unContrat.getAncienProprietaires().size()!=0)
+        if(unContrat.getAncienProprietaires().size()!=0) {
             ancienProprietaireContrat = transactionDAO.getPersonnesFromIds(unContrat.getAncienProprietaires());
 
+        }
+
         //si ancien propriétaire rempli du coté service et coté DTO alors je compare le contenu des deux;
-        return ancienProprietaireContrat.size() == ancienProprietaireLocal.size() && new HashSet<Personne>(ancienProprietaireContrat).containsAll(new HashSet<Personne>(ancienProprietaireLocal));
+        if (ancienProprietaireContrat.size()!=ancienProprietaireLocal.size())
+            return false;
+        for (Personne p : ancienProprietaireContrat) {
+            boolean flag = false;
+            for (Personne i : ancienProprietaireLocal) {
+                if (p.getId().equals(i.getId()))
+                flag = true;
+            }
+            if (!flag)
+                return false;
+        }
+        return true;
     }
 
     public String Checker(ContratDTO unContrat){

@@ -8,5 +8,5 @@ import java.util.List;
 public interface TransactionDAO  {
 
     public List<Personne> getAnciensProprietaires(int idBien) throws PersonneNotFound;
-    public List<Personne> getPersonnesFromIds(List<Long> ids) throws PersonneNotFound;
+    public List<Personne> getPersonnesFromIds(List<String> ids) throws PersonneNotFound;
 }

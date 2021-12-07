@@ -6,28 +6,28 @@ import java.util.List;
 
 public class ContratDTO {
 
-    Long vendeur;
+    String vendeur;
     int numero_rue;
     String adresse;
     int code_postal;
     int etage;
     int porte;
-    List<Long> ancienProprietaires = new ArrayList<Long>();
+    List<String> ancienProprietaires = new ArrayList<String>();
 
 
-    public List<Long> getAncienProprietaires() {
+    public List<String> getAncienProprietaires() {
         return ancienProprietaires;
     }
 
-    public void setAncienProprietaires(List<Long> ancienProprietaires) {
+    public void setAncienProprietaires(List<String> ancienProprietaires) {
         this.ancienProprietaires = ancienProprietaires;
     }
 
-    public Long getVendeur() {
+    public String getVendeur() {
         return vendeur;
     }
 
-    public void setVendeur(Long vendeur) {
+    public void setVendeur(String vendeur) {
         this.vendeur = vendeur;
     }
 

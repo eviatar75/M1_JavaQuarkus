@@ -30,7 +30,7 @@ public class ActeDeVenteGatewayImpl implements gatewayActeDeVente {
     }
 
     @Override
-    public void sendActeDeVentePDF(PDDocument pdfDocument){
+    public void sendPDF(PDDocument pdfDocument){
         try (ProducerTemplate producer = context.createProducerTemplate()) {
             producer.sendBody("direct:pdfgenerator", pdfDocument);
         } catch (IOException e) {

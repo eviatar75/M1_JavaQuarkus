@@ -17,6 +17,7 @@ public class PersonneDTO {
     private String date_naissance;
     private String nom;
     private String prenom;
+    private String mail;
 
 
     public long getSecurite_sociale() {
@@ -75,6 +76,14 @@ public class PersonneDTO {
         this.prenom = prenom;
     }
 
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
     @Override
     public String toString() {
         return "PersonneDTO{" +
@@ -85,6 +94,7 @@ public class PersonneDTO {
                 ", date_naissance='" + date_naissance + '\'' +
                 ", nom='" + nom + '\'' +
                 ", prenom='" + prenom + '\'' +
+                ", mail='" + mail + '\'' +
                 '}';
     }
 }

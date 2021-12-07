@@ -22,6 +22,8 @@ public class ContratPostDTO {
     int nb_piece;
     int superficie;
 
+
+
     LocalDate date_construction;
     LocalDate date_compromis_vente;
     LocalDate date_signature_vente;
@@ -187,6 +189,8 @@ public class ContratPostDTO {
     public void setIndice_perf_energetique(String indice_perf_energetique) {
         this.indice_perf_energetique = indice_perf_energetique;
     }
+
+
 
     @Override
     public String toString() {

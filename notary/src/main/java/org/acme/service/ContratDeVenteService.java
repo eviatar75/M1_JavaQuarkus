@@ -10,6 +10,7 @@ import javax.inject.Inject;
 import javax.jms.ConnectionFactory;
 import javax.transaction.Transactional;
 import javax.validation.constraints.Positive;
+import javax.ws.rs.NotFoundException;
 import javax.ws.rs.Produces;
 import java.io.Serializable;
 
@@ -25,9 +26,13 @@ public class ContratDeVenteService implements Serializable {
     ActeDeVenteGatewayImpl gateway;
 
 
-    public ActeDeVente getActeById (long id) {
+    public ActeDeVente getActeById (long id) throws NotFoundException{
         System.out.println(ActeDeVente.findById(id));
-        return ActeDeVente.findById(id);
+        ActeDeVente acte= ActeDeVente.findById(id);
+        if (acte==null){
+            throw new NotFoundException("Acte "+id+" introuvable");
+        }
+        return acte;
     }
 
 

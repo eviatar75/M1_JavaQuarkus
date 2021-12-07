@@ -9,8 +9,6 @@ import java.io.OutputStream;
 public interface gatewayActeDeVente {
 
     void sendActeDeVente(ContratDeVenteBrokerDTO contrat);
-    void sendActeDeVentePDF(PDDocument pdDocument);
-
-
+    void sendPDF(PDDocument pdDocument);
     void saveActeDeVente(ContratPostDTO contrat, int id);
 }

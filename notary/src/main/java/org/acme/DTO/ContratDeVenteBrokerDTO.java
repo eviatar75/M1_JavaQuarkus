@@ -30,10 +30,10 @@ public class ContratDeVenteBrokerDTO {
     boolean isolation;
     boolean amiante;
 
-    Long acheteur;
-    Long vendeur;
+    String acheteur;
+    String vendeur;
 
-    List<Long> ancienProprietaires = new ArrayList<Long>();
+    List<String> ancienProprietaires = new ArrayList<>();
 
     public ContratDeVenteBrokerDTO() {
     }
@@ -167,29 +167,29 @@ public class ContratDeVenteBrokerDTO {
         this.amiante = amiante;
     }
 
-    public Long getAcheteur() {
+    public String getAcheteur() {
         return acheteur;
     }
 
-    public void setAcheteur(Long acheteur) {
+    public void setAcheteur(String acheteur) {
         this.acheteur = acheteur;
     }
 
-    public Long getVendeur() {
+    public String getVendeur() {
         return vendeur;
     }
 
-    public void setVendeur(Long vendeur) {
+    public void setVendeur(String vendeur) {
         this.vendeur = vendeur;
     }
 
 
     @JsonbProperty("proprietaires")
-    public List<Long> getAncienProprietaires() {
+    public List<String> getAncienProprietaires() {
         return ancienProprietaires;
     }
 
-    public void setAncienProprietaires(List<Long> ancienProprietaires) {
+    public void setAncienProprietaires(List<String> ancienProprietaires) {
         this.ancienProprietaires = ancienProprietaires;
     }
 

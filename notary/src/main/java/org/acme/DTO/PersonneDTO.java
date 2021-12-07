@@ -1,16 +1,13 @@
 package org.acme.DTO;
 
 
-import javax.persistence.Column;
-import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.time.LocalDate;
 
 @XmlRootElement
 public class PersonneDTO {
 
 
-    private long securite_sociale;
+    private String securite_sociale;
     private int code_postal;
     private int numero_rue;
     private String adresse;
@@ -20,11 +17,11 @@ public class PersonneDTO {
     private String mail;
 
 
-    public long getSecurite_sociale() {
+    public String getSecurite_sociale() {
         return securite_sociale;
     }
 
-    public void setSecurite_sociale(long securite_sociale) {
+    public void setSecurite_sociale(String securite_sociale) {
         this.securite_sociale = securite_sociale;
     }
 

@@ -14,7 +14,7 @@ import java.time.LocalDate;
 public class Personne extends PanacheEntityBase {
     @Id
     @Column(name = "securite_sociale", nullable = false)
-    private Long id;
+    private String id;
 
     @Column(name = "adresse")
     private String adresse;
@@ -85,11 +85,11 @@ public class Personne extends PanacheEntityBase {
     }
 
     @JsonbProperty("securite_sociale")
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

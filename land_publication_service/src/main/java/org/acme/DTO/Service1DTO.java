@@ -5,21 +5,15 @@ import java.util.List;
 
 public class Service1DTO {
 
-    Long vendeur;
+    String vendeur;
     int numero_rue;
     String adresse;
     int code_postal;
     int etage;
     int porte;
-    List<Long> ancienProprietaires = new ArrayList<Long>();
+    List<String> ancienProprietaires = new ArrayList<>();
 
-    public Long getVendeur() {
-        return vendeur;
-    }
 
-    public void setVendeur(Long vendeur) {
-        this.vendeur = vendeur;
-    }
 
     public int getNumero_rue() {
         return numero_rue;
@@ -60,11 +54,19 @@ public class Service1DTO {
         this.porte = porte;
     }
 
-    public List<Long> getAncienProprietaires() {
+    public String getVendeur() {
+        return vendeur;
+    }
+
+    public void setVendeur(String vendeur) {
+        this.vendeur = vendeur;
+    }
+
+    public List<String> getAncienProprietaires() {
         return ancienProprietaires;
     }
 
-    public void setAncienProprietaires(List<Long> ancienProprietaires) {
+    public void setAncienProprietaires(List<String> ancienProprietaires) {
         this.ancienProprietaires = ancienProprietaires;
     }
 

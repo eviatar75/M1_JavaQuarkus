@@ -224,7 +224,8 @@ public class PDFService {
             contentStream.newLineAtOffset(25, 700);
 
 
-            String line1 = message.getIn().getBody(String.class);
+            String line0 = message.getIn().getBody(String.class);
+            String line1= line0.substring(1,line0.length()-1);
             String[] words = line1.split("\"\"");
 
             for (String word : words){

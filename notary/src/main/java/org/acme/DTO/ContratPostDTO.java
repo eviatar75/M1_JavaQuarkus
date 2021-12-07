@@ -12,7 +12,7 @@ public class ContratPostDTO {
     PersonneDTO acheteur;
     PersonneDTO vendeur;
 
-    List<Personne> ancienProprietaires = new ArrayList<Personne>();
+    List<Personne> ancienProprietaires = new ArrayList<>();
 
     int numero_rue;
     int code_postal;

@@ -101,7 +101,7 @@ public class ContratDeVenteService implements Serializable {
             dtoActeDeVente.setPorte(a.getPorte());
 
             List<Personne> personnes = a.getAncienProprietaires();
-            List<Long> ids=new ArrayList<Long>();
+            List<String> ids=new ArrayList<>();
             for(Personne p : personnes)
                 ids.add(p.getId());
             dtoActeDeVente.setAncienProprietaires(ids);

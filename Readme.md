@@ -42,9 +42,6 @@ end
 ```
 ![](sequence_acte_de_vente.png)
 
-## Schéma relationnel
-
-![](S-R-1.jpeg)
 
 ## Exigences fonctionnelles
 
@@ -59,4 +56,12 @@ end
 * Le notaire DOIT transmettre le titre de propriété au propriétaire si le service de publicité foncière valide l'acte de vente.
 * Le titre de propriété DOIT être transmis par mail en version pdf au propriétaire.
 
+
+## Schéma relationnel
+
+![](S-R-1.jpeg)
+
+![](S-R-2.jpeg)
+
+![](S-R-3.jpeg)
 

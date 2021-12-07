@@ -119,13 +119,14 @@ public class PDFService {
             contentStream.showText(line10);
             contentStream.newLine();
 
-
-            contentStream.newLine();
-            contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
-            String line11 = "Anciens propriétaires : " ;
-            contentStream.showText(line11);
-            contentStream.newLine();
-            contentStream.newLine();
+            if (!isUnmarshal.getAncienProprietaires().isEmpty()) {
+                contentStream.newLine();
+                contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
+                String line11 = "Anciens propriétaires : ";
+                contentStream.showText(line11);
+                contentStream.newLine();
+                contentStream.newLine();
+            }
 
             contentStream.setFont(PDType1Font.TIMES_ROMAN, 12);
 

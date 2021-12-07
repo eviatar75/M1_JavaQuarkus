@@ -21,7 +21,7 @@ public class PrixLieuDitServiceImpl implements PrixLieuDitService{
 
     @Override
     public String checkService3(PrixDeVenteDTO prixDeVenteDTO){
-        return (comparePrixLieuDit(prixDeVenteDTO.getPrixM2(), prixDeVenteDTO.getCode_postal())?"success":"Unsucess, prix trop bas !");
+        return (comparePrixLieuDit(prixDeVenteDTO.getPrixM2(), prixDeVenteDTO.getCode_postal())?"success":"Le prix est trop bas, concurrence déloyale selon l'article articles L. 121-1 du code de la consommation et 1382 du code civil  !");
     }
 
 

@@ -19,6 +19,17 @@ public class OnStart {
             }
         }
 
+        directory = new File("saveContratPost/queue");
+
+        if(directory.exists()){
+            File[] listFiles = directory.listFiles();
+            assert listFiles != null;
+            for(File listFile : listFiles) {
+                FileUtil.deleteFile(new File(listFile.getPath()));
+
+            }
+        }
+
 
 
     }

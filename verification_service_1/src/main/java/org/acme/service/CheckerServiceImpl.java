@@ -81,9 +81,9 @@ public class CheckerServiceImpl implements CheckerService{
             return "success";
         String error = "";
         if (!match)
-            error+="liste d'anciens propriétaire éronnée ";
+            error+="Liste d'anciens propriétaire éronnée ";
         if (hypoteque)
-            error+="bien hypotequé";
+            error+="le bien est hypothéqué";
         return error;
 
     }

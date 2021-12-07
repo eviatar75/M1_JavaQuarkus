@@ -49,16 +49,22 @@ public class ContratDeVenteService implements Serializable {
     public void createActeVente(ContratPostDTO a) throws Exception {
         try {
             ActeDeVente   newActe      = new ActeDeVente();
-            Personne      acheteur     = Personne.personneFromDto(a.getAcheteur());
-            Personne      vendeur      = Personne.personneFromDto(a.getVendeur());
+            Personne acheteur = Personne.personneFromDto(a.getAcheteur());
+            Personne vendeur = Personne.personneFromDto(a.getVendeur());
 
-            newActe.setStatutMail(false);
-            newActe.setStatuePdf(false);
+
+            if (Personne.findById(a.getAcheteur().getSecurite_sociale())==null) {
+                acheteur.persist();
+            }
+
+            if (Personne.findById(a.getVendeur().getSecurite_sociale())==null) {
+
+                vendeur.persist();
+            }
+
+
             newActe.setAcheteur(acheteur);
             newActe.setVendeur(vendeur);
-
-            acheteur.persist();
-            vendeur.persist();
             newActe.persist();
 
             createActeVenteDTO(a,newActe.getId().intValue());

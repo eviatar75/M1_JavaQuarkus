@@ -35,7 +35,7 @@ public class VerifCritereDeBien {
             return "L'acte de vente ne peut être valide, car le chauffage est alimenté par gaz";
         }else if(Objects.equals(chauffage, "fioul")){
             return "L'acte de vente ne peut être valide, car le chauffage est alimenté par fioul (en 2021 quand même..)";
-        }else if(Objects.equals(chauffage, "au bois")){
+        }else if(Objects.equals(chauffage, "bois")){
             return "success";
         }else if(Objects.equals(chauffage, "pompes à chaleur aérothermiques")){
             return "success";

@@ -4,11 +4,11 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.ws.rs.NotFoundException;
-import javax.ws.rs.Produces;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.acme.DTO.ContratPostDTO;
 import org.acme.domain.ActeDeVente;
+import org.acme.domain.Personne;
 import org.acme.gateway.ActeDeVenteGatewayImpl;
 import org.apache.camel.Exchange;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -16,11 +16,14 @@ import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
+import org.apache.pdfbox.pdmodel.interactive.digitalsignature.PDSignature;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Calendar;
 
 @ApplicationScoped
 public class PDFService {
@@ -49,11 +52,15 @@ public class PDFService {
             PDPage page = new PDPage(PDRectangle.A4);
             pdDocument.addPage(page);
             PDPageContentStream contentStream = new PDPageContentStream(pdDocument, page);
-
+            PDImageXObject pdImage = PDImageXObject.createFromFile("data/image/up1.jpg", pdDocument);
+            contentStream.drawImage(pdImage, 115, 675);
             contentStream.beginText();
+
             contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
             contentStream.setLeading(14.5f);
             contentStream.newLineAtOffset(25, 700);
+            contentStream.newLine();
+            contentStream.newLine();
             String line1 = "Acheteur : ";
             contentStream.showText(line1);
 
@@ -112,11 +119,32 @@ public class PDFService {
             contentStream.showText(line10);
             contentStream.newLine();
 
-            contentStream.setFont(PDType1Font.TIMES_ROMAN, 12);
+
             contentStream.newLine();
-            String line11 = "Anciens propriétaires : " + isUnmarshal.getAncienProprietaires();
+            contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
+            String line11 = "Anciens propriétaires : " ;
             contentStream.showText(line11);
             contentStream.newLine();
+            contentStream.newLine();
+
+            contentStream.setFont(PDType1Font.TIMES_ROMAN, 12);
+
+
+
+            for (Personne personne:isUnmarshal.getAncienProprietaires() ){
+                String lineproprio="Nom : "+personne.getNom();
+                String lineproprio2="Prénom : "+personne.getPrenom();
+                String lineproprio3="Date de naissance : "+personne.getDateNaissance().toString();
+                contentStream.showText(lineproprio);
+                contentStream.newLine();
+                contentStream.showText(lineproprio2);
+                contentStream.newLine();
+                contentStream.showText(lineproprio3);
+                contentStream.newLine();
+
+
+            }
+
 
             contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
             String line12 = "Descriptif du bien : ";
@@ -179,9 +207,18 @@ public class PDFService {
             contentStream.showText(line22);
             contentStream.newLine();
 
-
             contentStream.endText();
             contentStream.close();
+
+
+            PDPage page2 = new PDPage(PDRectangle.A4);
+            pdDocument.addPage(page2);
+            PDPageContentStream contentStream2 = new PDPageContentStream(pdDocument, page2);
+            PDImageXObject pdImage2 = PDImageXObject.createFromFile("data/image/picture_1.jpeg", pdDocument);
+            contentStream2.drawImage(pdImage2, 70, 200);
+            contentStream2.close();
+
+
             pdDocument.save("data/pdf/Recap_Acte_De_Vente_" + idActe + ".pdf");
             pdDocument.close();
 
@@ -189,7 +226,8 @@ public class PDFService {
             acte.setStatuePdf(true);
             acte.setUrlPdf("data/pdf/Recap_Acte_De_Vente_" + idActe + ".pdf");
             gateway.sendPDF(pdDocument);
-            serviceMailer.sendEmail(isUnmarshal.getAcheteur().getMail(), "data/pdf/Recap_Acte_De_Vente_" + idActe + ".pdf");
+            serviceMailer.sendEmail(isUnmarshal.getAcheteur().getMail(), "data/pdf/Recap_Acte_De_Vente_" + idActe + ".pdf",isUnmarshal.getAcheteur().getNom());
+            serviceMailer.sendEmail(isUnmarshal.getVendeur().getMail(), "data/pdf/Recap_Acte_De_Vente_" + idActe + ".pdf",isUnmarshal.getVendeur().getNom());
             acte.setStatutMail(true);
 
         } catch (Exception e ) {
@@ -239,14 +277,21 @@ public class PDFService {
 
             contentStream.endText();
             contentStream.close();
+
             pdDocument.save("data/pdf/Recap_Acte_De_Vente_" + message.getIn().getHeader("ActeID") + ".pdf");
             pdDocument.close();
+
+
+
+
+
 
             ActeDeVente acte = ActeDeVente.findById((long)((Integer.parseInt((String) message.getIn().getHeader("ActeID")))));
             acte.setStatuePdf(true);
             acte.setUrlPdf("data/pdf/Recap_Acte_De_Vente_" + message.getIn().getHeader("ActeID") + ".pdf");
             gateway.sendPDF(pdDocument);
-            serviceMailer.sendEmail(isUnmarshal.getAcheteur().getMail(), "data/pdf/Recap_Acte_De_Vente_" + message.getIn().getHeader("ActeID")  + ".pdf");
+            serviceMailer.sendEmail(isUnmarshal.getAcheteur().getMail(), "data/pdf/Recap_Acte_De_Vente_" + message.getIn().getHeader("ActeID")  + ".pdf",isUnmarshal.getAcheteur().getNom());
+            serviceMailer.sendEmail(isUnmarshal.getVendeur().getMail(), "data/pdf/Recap_Acte_De_Vente_" + message.getIn().getHeader("ActeID")  + ".pdf",isUnmarshal.getVendeur().getNom());
             acte.setStatutMail(true);
 
         } catch (Exception e ) {

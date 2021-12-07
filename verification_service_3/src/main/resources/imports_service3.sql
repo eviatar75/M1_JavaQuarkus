@@ -1,4 +1,3 @@
-TRUNCATE table `Prix_lieu_dit`;
 INSERT INTO `Prix_lieu_dit`(`code_postal`, `prix_min_m2`) VALUES
 ('75000',9960),
 ('13000',2156),

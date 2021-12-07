@@ -1,5 +1,7 @@
 ## Objectifs du système à modéliser
 
+https://github.com/eviatar75/M1_JavaQuarkus
+
 On propose de modéliser un système de vérification d'acte de vente à travers le service de publication fonciére, afin de vérifier plusieurs conditions : 
 
 - Vérification de la liste des anciens et actuel propriétaires du bien.

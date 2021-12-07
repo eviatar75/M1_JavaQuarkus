@@ -16,7 +16,7 @@ public class PrixLieuDitServiceImpl implements PrixLieuDitService{
     @Override
     public boolean comparePrixLieuDit(double prixM2BienImmobilier, int codePostal){
         PrixLieuDit prixLieuDit = pldd.findByCodePostal(codePostal);
-        return(prixLieuDit.getPrixMinM2()<=prixM2BienImmobilier);
+        return(prixLieuDit!=null && prixLieuDit.getPrixMinM2() <= prixM2BienImmobilier);
     }
 
     @Override

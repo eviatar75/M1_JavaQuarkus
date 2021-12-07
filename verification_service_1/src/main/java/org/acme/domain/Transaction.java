@@ -31,8 +31,8 @@ public class Transaction {
     @JoinColumn(name = "acheteur", nullable = false)
     private org.acme.domain.Personne acheteur;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "vendeur", nullable = false)
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "vendeur", nullable = true)
     private org.acme.domain.Personne vendeur;
 
     @ManyToOne(optional = false)

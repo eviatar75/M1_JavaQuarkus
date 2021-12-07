@@ -44,7 +44,7 @@ end
 
 ## Schéma relationnel
 
-![](S-R-1.png)
+![](S-R-1.jpeg)
 
 ## Exigences fonctionnelles
 

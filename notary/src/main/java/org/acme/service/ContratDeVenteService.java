@@ -13,6 +13,8 @@ import javax.validation.constraints.Positive;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.Produces;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.acme.gateway.ActeDeVenteGatewayImpl;
 
@@ -97,6 +99,12 @@ public class ContratDeVenteService implements Serializable {
             dtoActeDeVente.setDate_signature_acte(a.getDate_signature_vente());
             dtoActeDeVente.setPrix(a.getPrix());
             dtoActeDeVente.setPorte(a.getPorte());
+
+            List<Personne> personnes = a.getAncienProprietaires();
+            List<Long> ids=new ArrayList<Long>();
+            for(Personne p : personnes)
+                ids.add(p.getId());
+            dtoActeDeVente.setAncienProprietaires(ids);
 
             gateway.sendActeDeVente(dtoActeDeVente);
 

@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.acme.DTO.ContratPostDTO;
 import org.acme.domain.ActeDeVente;
 import org.acme.gateway.ActeDeVenteGatewayImpl;
+import org.apache.camel.Exchange;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
@@ -197,6 +198,63 @@ public class PDFService {
 
         }
     }
+
+    @Transactional
+    public void creationPDF2(Exchange message) throws Exception {
+
+        try {
+
+            String json = Files.readString(Path.of("saveContratPost/queue/" + message.getIn().getHeader("ActeID") + ".dto"));
+            System.out.println("\n\n\n" + json + "\n\n\n");
+            ObjectMapper obj = new ObjectMapper();
+            obj.findAndRegisterModules();
+            ContratPostDTO isUnmarshal = obj.readValue(json, ContratPostDTO.class);
+            System.out.println(isUnmarshal);
+
+
+
+            PDDocument pdDocument = new PDDocument();
+            PDPage page = new PDPage(PDRectangle.A4);
+            pdDocument.addPage(page);
+            PDPageContentStream contentStream = new PDPageContentStream(pdDocument, page);
+
+            contentStream.beginText();
+            contentStream.setFont(PDType1Font.HELVETICA_BOLD, 7);
+            contentStream.setLeading(14.5f);
+            contentStream.newLineAtOffset(25, 700);
+
+
+            String line1 = message.getIn().getBody(String.class);
+            String[] words = line1.split("\"\"");
+
+            for (String word : words){
+                contentStream.showText(word);
+                contentStream.newLine();
+            }
+
+
+
+
+
+            contentStream.endText();
+            contentStream.close();
+            pdDocument.save("data/pdf/Recap_Acte_De_Vente_" + message.getIn().getHeader("ActeID") + ".pdf");
+            pdDocument.close();
+
+            ActeDeVente acte = ActeDeVente.findById((long)((Integer.parseInt((String) message.getIn().getHeader("ActeID")))));
+            acte.setStatuePdf(true);
+            acte.setUrlPdf("data/pdf/Recap_Acte_De_Vente_" + message.getIn().getHeader("ActeID") + ".pdf");
+            gateway.sendPDF(pdDocument);
+            serviceMailer.sendEmail(isUnmarshal.getAcheteur().getMail(), "data/pdf/Recap_Acte_De_Vente_" + message.getIn().getHeader("ActeID")  + ".pdf");
+            acte.setStatutMail(true);
+
+        } catch (Exception e ) {
+
+            throw new Exception("impossible de crée le mail et de l'envoyer");
+
+        }
+    }
+
 
 
     public File recuperationPdf(int idActeDeVente){

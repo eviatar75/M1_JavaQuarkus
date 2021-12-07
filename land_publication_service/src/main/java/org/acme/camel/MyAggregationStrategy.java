@@ -31,10 +31,7 @@ public class MyAggregationStrategy implements AggregationStrategy {
             System.out.println("success/success\n");
             newIn.setBody("success");
         }
-        else if (!oldBody.trim().equals("\"success\"") && !newBody.trim().equals("\"success\"")
-                || !(oldBody.trim().equals("success") && !newBody.trim().equals("success"))
-                ||!(oldBody.trim().equals("\"success\"") && !newBody.trim().equals("success"))
-                ||!(oldBody.trim().equals("success") && !newBody.trim().equals("\"success\""))){
+        else if ((!oldBody.trim().equals("\"success\"")&&!(oldBody.trim().equals("success") ))&& ((!newBody.trim().equals("\"success\"")&&!(newBody.trim().equals("success") )))){
             System.out.println("unsuccess/unsuccess\n");
             newIn.setBody(oldBody + newBody);
         }

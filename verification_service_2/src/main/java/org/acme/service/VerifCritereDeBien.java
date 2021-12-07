@@ -69,27 +69,27 @@ public class VerifCritereDeBien {
 
         if  (!(VerifCritereSuperficie(verifCritereDeBienDTO.getSuperficie()).equals("success"))){
             checking.append(VerifCritereSuperficie(verifCritereDeBienDTO.getSuperficie()));
-            checking.append("\n");
+
         }
         if  (!(VerifCritereIndicePerfEnergetique(verifCritereDeBienDTO.getIndice_perf_energetique()).equals("success"))){
             checking.append(VerifCritereIndicePerfEnergetique(verifCritereDeBienDTO.getIndice_perf_energetique()));
-            checking.append("\n");
+
         }
         if  (!(VerifCritereIsolation(verifCritereDeBienDTO.isIsolation()).equals("success"))){
             checking.append(VerifCritereIsolation(verifCritereDeBienDTO.isIsolation()));
-            checking.append("\n");
+
 
         }if  (!(VerifCritereAmiante(verifCritereDeBienDTO.isAmiante()).equals("success"))){
             checking.append(VerifCritereAmiante(verifCritereDeBienDTO.isAmiante()));
-            checking.append("\n");
+
         }
         if  (!(VerifCritereChauffage(verifCritereDeBienDTO.getChauffage()).equals("success"))){
             checking.append(VerifCritereChauffage(verifCritereDeBienDTO.getChauffage()));
-            checking.append("\n");
+
         }
         if  (!(VerifCritereDate(verifCritereDeBienDTO.getDate_construction()).equals("success"))){
             checking.append(VerifCritereDate(verifCritereDeBienDTO.getDate_construction()));
-            checking.append("\n");
+
         }
 
         if (checking.length()<2){

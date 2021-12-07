@@ -2,8 +2,11 @@ package org.acme.service;
 
 import org.acme.DTO.dateAVerifDTO;
 
+import javax.enterprise.context.ApplicationScoped;
 import java.time.LocalDate;
 
+
+@ApplicationScoped
 public class ServiceVerifDate {
 
     public boolean verifDate(LocalDate date_compromis_vente, LocalDate date_signature_vente){
@@ -21,7 +24,7 @@ public class ServiceVerifDate {
 
         return res;
 
-    } 
+    }
 
     public String checkService2(dateAVerifDTO verifCritereDeBienDTO){
         return(verifDate(verifCritereDeBienDTO.getDate_compromis_vente(), verifCritereDeBienDTO.getDate_signature_vente()))

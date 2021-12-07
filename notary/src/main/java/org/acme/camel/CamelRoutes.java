@@ -40,8 +40,8 @@ public class CamelRoutes extends RouteBuilder {
                 .when(header("success").isEqualTo("true"))
                 .log(body().toString())
                 .bean(pdfGenerator,"creationPDF(${header.ActeID})")
-
                 .otherwise()
+                .bean(pdfGenerator,"creationPDF2")
                 .log(body().toString());
 
         from("direct:pdfgenerator")

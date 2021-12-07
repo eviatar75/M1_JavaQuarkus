@@ -44,8 +44,7 @@ public class CamelRoutes extends RouteBuilder {
 
         from("direct:pdfgenerator")
                 //.process(new ProcessorPDF())
-
-                .to("file:pdf/");
+                .log("e");
 
 
 

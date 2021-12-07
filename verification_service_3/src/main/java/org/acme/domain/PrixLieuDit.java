@@ -1,5 +1,7 @@
 package org.acme.domain;
 
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -7,7 +9,7 @@ import javax.persistence.Table;
 
 @Table(name = "Prix_lieu_dit")
 @Entity
-public class PrixLieuDit {
+public class PrixLieuDit extends PanacheEntityBase {
     @Id
     @Column(name = "code_postal", nullable = false, length = 5)
     private String id;

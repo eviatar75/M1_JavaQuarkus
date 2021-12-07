@@ -3,9 +3,9 @@
 On propose de modéliser un système de vérification d'acte de vente à travers le service de publication fonciére, afin de vérifier plusieurs conditions : 
 
 - Vérification de la liste des anciens et actuel propriétaires du bien.
-- Vérifications des critères du bien (superficie, concordance des données,...) <- A compléter 
+- Vérifications des critères du bien (superficie, amiante, isolation, date de construction, chauffage, indice de performance énergétique) 
 - Vérifier que le prix de vente est compris dans la fourchette des prix des autres biens présents dans le même quartier 
-- Vérifier de la concordance des dates <- A compléter  
+- Vérifier de la concordance des dates, la date de signature de l'acte de vente doit être supérieur à deux mois de la date du compromis de vente  
 
 ## Interfaces
 
@@ -28,7 +28,7 @@ alt Verif AllSuccessfull
     Metier2->Service Publication Fonciere: POST JSON VerifCriteresBienOk
     Metier3->Service Publication Fonciere: POST JSON PrixDeVenteOK
     Metier4->Service Publication Fonciere: POST JSON VerifDatesOk
-    Service Publication Fonciere->Notaire: POST JSON Succesfull
+    Service Publication Fonciere->Notaire: POST JSON Success
     Notaire->Proprio: SMTP PDF Acte de vente
     
 else Verif one or more Unsuccessfull
@@ -36,33 +36,32 @@ else Verif one or more Unsuccessfull
     Metier2->Service Publication Fonciere: POST JSON VerifCriteresBienNotOk
     Metier3->Service Publication Fonciere: POST JSON PrixDeVenteNotOK
     Metier4->Service Publication Fonciere: POST JSON VerifDatesNotOk
-    Service Publication Fonciere->Notaire: POST JSON Unsuccesfull
+    Service Publication Fonciere->Notaire: POST JSON Unsuccess
 end
 
 ```
 ![](sequence_acte_de_vente.png)
 
-## Schéma relationnel
-
-![](EER.png)
 
 ## Exigences fonctionnelles
 
 * Le service de publicité foncière DOIT vérifier l'acte de vente, en déléguant les différentes parties de ce dernier à différents services.
-* Le vendeur d’un bien DOIT être le propriétaire de ce dernier.
 * Un bien NE DOIT PAS être hypothéqué.
+* Un acte DOIT comporter tous les anciens propriétaires.
 * Le diagnostic d'amiante DOIT être précisé dans l’acte de vente.
-* Un bien NE DOIT PAS pouvoir être chauffé au gaz si le bien est neuf.
+* Un bien NE DOIT PAS pouvoir être chauffé au gaz.
 * Le prix d’un bien NE DOIT PAS être inférieur au prix de vente le plus bas d’une zone géographique déterminée par un code postal.
 * le vendeur et l'acheteur DOIVENT fixer une date de signature pour le compromis de vente.
-* le vendeur NE DOIT PAS renoncer à la vente ou proposer le bien immobilier à un tiers acquéreur pendant la promesse de vente.
 * la signature de l'acte de vente chez le notaire DOIT avoir lieu dans les délais dans le compromis de vente. (2 mois minimum)
-* le notaire DOIT pouvoir repousser la date de signature de manière unilatérale (si contraintes administratives).
-* Le futur acquéreur DOIT pouvoir renoncer à l'achat pendant les dix jours qui suivent la signature d'un compromis de vente.
-* Si le retractaire a versé un dépôt de grantie auprès du notaire, il DOIT restituer la somme dans les 21 jours suivants.
 * Le notaire DOIT transmettre le titre de propriété au propriétaire si le service de publicité foncière valide l'acte de vente.
 * Le titre de propriété DOIT être transmis par mail en version pdf au propriétaire.
 
-## Exigences non fonctionnelles
 
-* le notaire DOIT remettre à l'acheteur une attestation immobilière de propriété en attendant la transmission du titre de propriété. (pendant le temps d'obtention de titre de proprio qui généralement se fait en 6 mois)
+## Schéma relationnel
+
+![](S-R-1.jpeg)
+
+![](S-R-2.jpeg)
+
+![](S-R-3.jpeg)
+

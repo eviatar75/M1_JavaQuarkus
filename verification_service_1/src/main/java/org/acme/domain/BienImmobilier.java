@@ -163,4 +163,24 @@ public class BienImmobilier {
     public void setId(Integer id) {
         this.id = id;
     }
+
+    @java.lang.Override
+    public java.lang.String toString() {
+        return "BienImmobilier{" +
+                "id=" + id +
+                ", rue='" + rue + '\'' +
+                ", numeroRue='" + numeroRue + '\'' +
+                ", codePostal='" + codePostal + '\'' +
+                ", etage=" + etage +
+                ", porte='" + porte + '\'' +
+                ", nbPiece=" + nbPiece +
+                ", superficie=" + superficie +
+                ", statutHypoteque=" + statutHypoteque +
+                ", dateConstruction=" + dateConstruction +
+                ", indicePerfEnergetique='" + indicePerfEnergetique + '\'' +
+                ", chauffage='" + chauffage + '\'' +
+                ", isolation=" + isolation +
+                ", amiante=" + amiante +
+                '}';
+    }
 }

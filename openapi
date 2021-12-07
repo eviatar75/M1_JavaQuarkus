@@ -1,0 +1,133 @@
+---
+openapi: 3.0.3
+info:
+  title: notary API
+  version: 1.0.0-SNAPSHOT
+paths:
+  /ActeDeVente/{contratActeDeVente}:
+    get:
+      tags:
+      - Contrat De Vente Resource
+      parameters:
+      - name: contratActeDeVente
+        in: path
+        required: true
+        schema:
+          format: int32
+          minimum: 1
+          type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            application/octet-stream: {}
+  /ActeDeVente/{generationActeDeVente}:
+    post:
+      tags:
+      - Contrat De Vente Resource
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContratPostDTO'
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+components:
+  schemas:
+    ContratPostDTO:
+      type: object
+      properties:
+        acheteur:
+          $ref: '#/components/schemas/PersonneDTO'
+        vendeur:
+          $ref: '#/components/schemas/PersonneDTO'
+        ancienProprietaires:
+          type: array
+          items:
+            $ref: '#/components/schemas/Personne'
+        numero_rue:
+          format: int32
+          type: integer
+        code_postal:
+          format: int32
+          type: integer
+        etage:
+          format: int32
+          type: integer
+        porte:
+          format: int32
+          type: integer
+        prix:
+          format: int32
+          type: integer
+        nb_piece:
+          format: int32
+          type: integer
+        superficie:
+          format: int32
+          type: integer
+        date_construction:
+          format: date
+          type: string
+        date_compromis_vente:
+          format: date
+          type: string
+        date_signature_vente:
+          format: date
+          type: string
+        indice_perf_energetique:
+          type: string
+        chauffage:
+          type: string
+        rue:
+          type: string
+        isolation:
+          type: boolean
+        amiante:
+          type: boolean
+    Personne:
+      type: object
+      properties:
+        securite_sociale:
+          type: string
+        adresse:
+          type: string
+        codePostal:
+          format: int32
+          type: integer
+        dateNaissance:
+          format: date
+          type: string
+        nom:
+          type: string
+        numeroRue:
+          format: int32
+          type: integer
+        prenom:
+          type: string
+    PersonneDTO:
+      type: object
+      properties:
+        securite_sociale:
+          type: string
+        code_postal:
+          format: int32
+          type: integer
+        numero_rue:
+          format: int32
+          type: integer
+        adresse:
+          type: string
+        date_naissance:
+          type: string
+        nom:
+          type: string
+        prenom:
+          type: string
+        mail:
+          type: string

@@ -44,7 +44,7 @@ end
 
 ## Schéma relationnel
 
-![](EER.png)
+![](S-R-1.png)
 
 ## Exigences fonctionnelles
 
@@ -59,6 +59,4 @@ end
 * Le notaire DOIT transmettre le titre de propriété au propriétaire si le service de publicité foncière valide l'acte de vente.
 * Le titre de propriété DOIT être transmis par mail en version pdf au propriétaire.
 
-## Exigences non fonctionnelles
 
-* le notaire DOIT remettre à l'acheteur une attestation immobilière de propriété en attendant la transmission du titre de propriété. (pendant le temps d'obtention de titre de proprio qui généralement se fait en 6 mois)

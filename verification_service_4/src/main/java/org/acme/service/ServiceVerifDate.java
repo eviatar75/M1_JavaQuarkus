@@ -12,7 +12,8 @@ public class ServiceVerifDate {
 
         if (res){
 
-            System.out.println("Vérification date succés");
+            System.out.println("Vérification date success");
+
 
         }else
             System.out.println("La vérif de la date n'eest pas passé");
@@ -20,10 +21,10 @@ public class ServiceVerifDate {
 
         return res;
 
-    } //A approfondir
+    } 
 
     public String checkService2(dateAVerifDTO verifCritereDeBienDTO){
         return(verifDate(verifCritereDeBienDTO.getDate_compromis_vente(), verifCritereDeBienDTO.getDate_signature_vente()))
-        ?"success":"unsucess";
+        ?"success":"La date de signature de vente doit être au minimum 2 mois après la date de compromis de vente";
     }
 }

@@ -11,12 +11,8 @@ public class dateAVerifDTO {
         this.date_compromis_vente = date_compromis_vente;
         this.date_signature_vente = date_signature_vente;
     }
-
     public dateAVerifDTO() {
-
     }
-
-
 
     public LocalDate getDate_compromis_vente() {
         return date_compromis_vente;

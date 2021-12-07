@@ -1,7 +1,8 @@
 package org.acme.camel;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.acme.Service4DTO;
+import org.acme.DTO.dateAVerifDTO;
+import org.acme.service.ServiceVerifDate;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
@@ -15,6 +16,9 @@ public class CamelRoutes extends RouteBuilder {
     @Inject
     CamelContext context;
 
+    @Inject
+    ServiceVerifDate service;
+
 
     @Override
     public void configure() {
@@ -22,7 +26,7 @@ public class CamelRoutes extends RouteBuilder {
         context.setTracing(true);
         from("jms:queue/ServiceDeVerification4")
                 .process(new Processoring())
-                .setBody(simple("success"))
+                .bean(service,"checkService2")
                 .process(new Processor() {
                     @Override
                     public void process(Exchange exchange) throws Exception {
@@ -40,7 +44,7 @@ public class CamelRoutes extends RouteBuilder {
             ObjectMapper obj = new ObjectMapper();
             //La ligne qui permet de faire passer les LocalDate
             obj.findAndRegisterModules();
-            Service4DTO isUnmarshal = obj.readValue(exchange.getMessage().getBody(String.class), Service4DTO.class);
+            dateAVerifDTO isUnmarshal = obj.readValue(exchange.getMessage().getBody(String.class), dateAVerifDTO.class);
             exchange.getMessage().setBody(isUnmarshal);
 
         }

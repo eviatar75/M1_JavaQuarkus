@@ -2,21 +2,17 @@ package org.acme.camel;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.acme.DTO.ContratDeVenteBrokerDTO;
 import org.acme.service.GeneratePDFService;
 import org.apache.camel.*;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.model.dataformat.JsonLibrary;
-import org.apache.camel.spi.DataFormat;
-import org.apache.pdfbox.pdmodel.PDDocument;
 
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.json.bind.JsonbBuilder;
-import java.io.OutputStream;
-import java.util.ArrayList;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 
 @ApplicationScoped
 public class CamelRoutes extends RouteBuilder {
@@ -36,22 +32,32 @@ public class CamelRoutes extends RouteBuilder {
 
         from("jms:queue/responseToNotary")
                 .choice()
-
-                .when(((body()).isEqualTo("success")))
+                .when(header("success").isEqualTo("true"))
                 .log(body().toString())
+                .bean(gps,"creationPDF(${header.ActeID})")
+
                 //.process(new ProcessoringPdf())
                 ///.to("direct:pdf");
                 //bean creation pdf
-
                 .otherwise()
                 .log(body().toString());
 
         from("direct:pdfgenerator")
-                .to("file:D:/pdf");
+                //.process(new ProcessorPDF())
+
+                .to("file:pdf/");
 
 
 
 
+    }
+
+    private static class ProcessorPDF implements Processor {
+        @Override
+        public void process(Exchange exchange) throws Exception {
+            InputStream is = new FileInputStream((String) exchange.getMessage().getBody());
+            exchange.getOut().setBody(is);
+        }
     }
 
 
@@ -90,7 +96,6 @@ public class CamelRoutes extends RouteBuilder {
 
 
                 exchange.getMessage().setBody(jsondto);
-
                 String acteID= Integer.toString(echangedto.getId());
 
                 exchange.getMessage().setHeader("ActeID",acteID);

@@ -55,6 +55,8 @@ public class ContratDeVenteService implements Serializable {
             newActe.persist();
 
             createActeVenteDTO(a,newActe.getId().intValue());
+            gateway.saveActeDeVente(a,newActe.getId().intValue());
+
 
 
         }catch (Exception e){
